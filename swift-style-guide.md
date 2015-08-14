@@ -74,11 +74,11 @@ if (!error) {
 **Not:**
 ```swift
 guard let user = currentUser else {
-  return
+    return
 }
 ```
 
-**and not:***
+and not:
 
 ```swift
 if (!error) { return success }
@@ -100,7 +100,7 @@ result = a > b ? x = c > d ? c : d : y;
 
 ### Nil Coalescing Operator
 
-Use the Nil Coalescing Operator, `??`, instead of using the ternary operator to check for `nil` and provide a default value when assigning values to a non-optional variable.
+Use the Nil Coalescing Operator, `??`, instead of using the ternary operator to check for `nil` and provide a default value when assigning values to non-optional variables.
 
 **For example:**
 ```swift
@@ -155,7 +155,22 @@ Use implicit typing. This creates a greater need for thoughtful variable names w
 
 Single letter variable names should be avoided except as simple counter variables in loops.
 
-Colons indicating an explicit type should be “attached to” the variable name. **For example,** `let text: String` **not** `let text : String` or `let text :String`.
+Colons indicating an explicit type should be “attached to” the variable name.
+
+**For example,**
+```swift
+let text: String
+```
+
+**not**
+```swift
+let text : String
+```
+
+and not:
+```swift
+let text :String
+```
 
 ### Mutability: `let` over `var`
 
@@ -163,9 +178,9 @@ Use `var` only when necessary, e.g. when you're absolutely sure you will be chan
 
 At all other times, and when in doubt, use `let`.
 
-> It's safer to assume that a variable is immutable, thus it's highly recommended to declare values as constants, using `let`. Immutable constants ensure their values will never change, which results in less error-prone code.
->
-> Whenever you see a `var` identifier being used, assume that it will change and ask yourself why.
+It's safer to assume that a variable is immutable, thus it's highly recommended to declare values as constants, using `let`. Immutable constants ensure their values will never change, which results in less error-prone code.
+
+Whenever you see a `var` identifier being used, assume that it will change and ask yourself why.
 
 ## Naming
 
