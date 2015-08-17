@@ -230,142 +230,109 @@ Each type declaration should have a description of its intended purpose in a doc
 
 > TODO: show good and bad doc
 
-> TODO: Continue working from here.
+## init and deinit
 
-## init and dealloc
+`deinit` methods should be placed at the top of the class body, directly after the property declarations. `init` should be placed directly below the `deinit` methods of any class.
 
-`dealloc` methods should be placed at the top of the implementation, directly after the `@synthesize` and `@dynamic` statements. `init` should be placed directly below the `dealloc` methods of any class.
+## Typed Collection Initialization
 
-`init` methods should be structured like this:
-
-```objc
-- (instancetype)init {
-    self = [super init]; // or call the designated initializer
-    if (self) {
-        // Custom initialization
-    }
-
-    return self;
-}
-```
-
-## Literals
-
-`NSString`, `NSDictionary`, `NSArray`, and `NSNumber` literals should be used whenever creating immutable instances of those objects. Pay special care that `nil` values not be passed into `NSArray` and `NSDictionary` literals, as this will cause a crash.
+Typed collections should be initialized with literal values where possible. When building collection contents dynamically, initialize them with the type declaration on the right-hand side of the expression. Property declarations providing an initial value should follow these conventions.
 
 **For example:**
 
-```objc
-NSArray *names = @[@"Brian", @"Matt", @"Chris", @"Alex", @"Steve", @"Paul"];
-NSDictionary *productManagers = @{@"iPhone" : @"Kate", @"iPad" : @"Kamal", @"Mobile Web" : @"Bill"};
-NSNumber *shouldUseLiterals = @YES;
-NSNumber *buildingZIPCode = @10018;
+```swift
+let names = ["Brian", "Matt", "Chris", "Alex", "Steve", "Paul"]
+let productManagers = ["iPhone" : "Kate", "iPad" : "Kamal", "Mobile Web" : "Bill" ]
+```
+
+or:
+
+```swift
+var developers = [String]()
+var developersByTeam = [String:String]()
 ```
 
 **Not:**
 
-```objc
-NSArray *names = [NSArray arrayWithObjects:@"Brian", @"Matt", @"Chris", @"Alex", @"Steve", @"Paul", nil];
-NSDictionary *productManagers = [NSDictionary dictionaryWithObjectsAndKeys: @"Kate", @"iPhone", @"Kamal", @"iPad", @"Bill", @"Mobile Web", nil];
-NSNumber *shouldUseLiterals = [NSNumber numberWithBool:YES];
-NSNumber *buildingZIPCode = [NSNumber numberWithInteger:10018];
+```swift
+var names = [String]()
+names = ["Brian", "Matt", "Chris", "Alex", "Steve", "Paul"]
 ```
 
-## `CGRect` Functions
+and not:
 
-When accessing the `x`, `y`, `width`, or `height` of a `CGRect`, always use the [`CGGeometry` functions](http://developer.apple.com/library/ios/#documentation/graphicsimaging/reference/CGGeometry/Reference/reference.html) instead of direct struct member access. From Apple's `CGGeometry` reference:
-
-> All functions described in this reference that take CGRect data structures as inputs implicitly standardize those rectangles before calculating their results. For this reason, your applications should avoid directly reading and writing the data stored in the CGRect data structure. Instead, use the functions described here to manipulate rectangles and to retrieve their characteristics.
-
-**For example:**
-
-```objc
-CGRect frame = self.view.frame;
-
-CGFloat x = CGRectGetMinX(frame);
-CGFloat y = CGRectGetMinY(frame);
-CGFloat width = CGRectGetWidth(frame);
-CGFloat height = CGRectGetHeight(frame);
-```
-
-**Not:**
-
-```objc
-CGRect frame = self.view.frame;
-
-CGFloat x = frame.origin.x;
-CGFloat y = frame.origin.y;
-CGFloat width = frame.size.width;
-CGFloat height = frame.size.height;
+```swift
+var developers: Array<String> = Array()
+var developersByTeam: Dictionary<String:String> = Dictionary()
 ```
 
 ## Constants
 
-Constants are preferred over in-line string literals or numbers, as they allow for easy reproduction of commonly used variables and can be quickly changed without the need for find and replace. Constants should be declared as `static` constants and not `#define`s unless explicitly being used as a macro.
+Constants are preferred over in-line string literals or numbers, as they allow for easy reproduction of commonly used variables and can be quickly changed without the need for find and replace. Constants should be declared as `static private let` values on the type that uses them.
 
 **For example:**
 
-```objc
-static NSString * const NYTAboutViewControllerCompanyName = @"The New York Times Company";
+```swift
+class User {
 
-static const CGFloat NYTImageThumbnailHeight = 50.0;
+    static private let userKey = "user"
+    static private let nameKey = "name"
+
+}
 ```
 
 **Not:**
 
 ```objc
-#define CompanyName @"The New York Times Company"
+private let userKey = "user"
+private let nameKey = "name"
 
-#define thumbnailHeight 2
+class User {
+
+}
 ```
 
 ## Enumerated Types
 
-When using `enum`s, use the new fixed underlying type specification, which provides stronger type checking and code completion. The SDK includes a macro to facilitate and encourage use of fixed underlying types: `NS_ENUM()`.
+When using `enum`s, reserve using raw types for enums whose raw values are used in storage or other I/O. All other enums should be declared without a raw value.
 
 **Example:**
 
-```objc
-typedef NS_ENUM(NSInteger, NYTAdRequestState) {
-    NYTAdRequestStateInactive,
-    NYTAdRequestStateLoading
-};
-```
+```swift
+enum TemperatureUnit: String {
+    case Kelvin = "K"
+    case Celsius = "C"
+    case Farenheit = "F"
+}
 
-## Bitmasks
-
-When working with bitmasks, use the `NS_OPTIONS` macro.
-
-**Example:**
-
-```objc
-typedef NS_OPTIONS(NSUInteger, NYTAdCategory) {
-  NYTAdCategoryAutos      = 1 << 0,
-  NYTAdCategoryJobs       = 1 << 1,
-  NYTAdCategoryRealState  = 1 << 2,
-  NYTAdCategoryTechnology = 1 << 3
-};
+enum FeedCellType {
+    case StoryCell
+    case AdCell
+}
 ```
 
 ## Private Properties
 
-Private properties should be declared in class extensions (anonymous categories) in the implementation file of a class.
+Private properties should be used where possible, hiding how a class does its work and allowing it to change over time without impacting surrounding classes. All non-private properties should be considered part of a class's published API, and changes to those will likely cause a ripple of changes to other classes. Read-only properties should declare their setters to be private.
 
 **For example:**
 
-```objc
-@interface NYTAdvertisement ()
+```swift
+class PatientVitals {
 
-@property (nonatomic, strong) GADBannerView *googleAdView;
-@property (nonatomic, strong) ADBannerView *iAdView;
-@property (nonatomic, strong) UIWebView *adXWebView;
+    @NSManaged public private(set) var dateCreated: NSDate?
 
-@end
+    @NSManaged private var temperatureCelsius: NSDecimalNumber?
+    public var temperature: Temperature? {
+      // Convert from decimal to struct
+    }
+
+}
 ```
 
 ## Image Naming
 
-Image names should be named consistently to preserve organization and developer sanity. They should be named as one camel case string with a description of their purpose, followed by the un-prefixed name of the class or property they are customizing (if there is one), followed by a further description of color and/or placement, and finally their state.
+Image names should be chosen consistently to preserve organization and developer sanity. They should be named as one camel case string with a description of their purpose, followed by the un-prefixed name of the class or property they are customizing (if there is one), followed by a further description of color and/or placement, and finally their state.
 
 **For example:**
 
@@ -374,77 +341,25 @@ Image names should be named consistently to preserve organization and developer 
 
 Images that are used for a similar purpose should be grouped in respective groups in an Images folder or Asset Catalog.
 
-## Booleans
-
-Never compare something directly to `YES`, because `YES` is defined as `1`, and a `BOOL` in Objective-C is a `CHAR` type that is 8 bits long (so a value of `11111110` will return `NO` if compared to `YES`).
-
-**For an object pointer:**
-
-```objc
-if (!someObject) {
-}
-
-if (someObject == nil) {
-}
-```
-
-**For a `BOOL` value:**
-
-```objc
-if (isAwesome)
-if (!someNumber.boolValue)
-if (someNumber.boolValue == NO)
-```
-
-**Not:**
-
-```objc
-if (isAwesome == YES) // Never do this.
-```
-
-If the name of a `BOOL` property is expressed as an adjective, the property’s name can omit the `is` prefix but should specify the conventional name for the getter.
-
-**For example:**
-
-```objc
-@property (assign, getter=isEditable) BOOL editable;
-```
-
-_Text and example taken from the [Cocoa Naming Guidelines](https://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/CodingGuidelines/Articles/NamingIvarsAndTypes.html#//apple_ref/doc/uid/20001284-BAJGIIJE)._
-
 ## Singletons
 
-Singleton objects should use a thread-safe pattern for creating their shared instance.
-```objc
-+ (instancetype)sharedInstance {
-   static id sharedInstance = nil;
+Singleton objects should use the simple thread-safe pattern for creating their shared instance.
 
-   static dispatch_once_t onceToken;
-   dispatch_once(&onceToken, ^{
-      sharedInstance = [[[self class] alloc] init];
-   });
+```swift
+class Thermometer {
 
-   return sharedInstance;
+    static let sharedInstance = Thermometer()
+
 }
-```
-This will prevent [possible and sometimes frequent crashes](http://cocoasamurai.blogspot.com/2011/04/singletons-your-doing-them-wrong.html).
 
 ## Imports
 
-If there is more than one import statement, group the statements [together](http://ashfurrow.com/blog/structuring-modern-objective-c). Commenting each group is optional.
-
-Note: For modules use the [@import](http://clang.llvm.org/docs/Modules.html#using-modules) syntax.
+If there is more than one `import` statement, order the statements alphabetically. This allows for easy removal when you no longer need that module in your code.
 
 ```objc
-// Frameworks
-@import QuartzCore;
-
-// Models
-#import "NYTUser.h"
-
-// Views
-#import "NYTButton.h"
-#import "NYTUserView.h"
+import CoreData
+import ModelModule
+import QuartzCore
 ```
 
 ## Xcode project
@@ -453,15 +368,11 @@ The physical files should be kept in sync with the Xcode project files in order 
 
 When possible, always turn on “Treat Warnings as Errors” in the target’s Build Settings and enable as many [additional warnings](http://boredzo.org/blog/archives/2009-11-07/warnings) as possible. If you need to ignore a specific warning, use [Clang’s pragma feature](http://clang.llvm.org/docs/UsersManual.html#controlling-diagnostics-via-pragmas).
 
-# Other Objective-C Style Guides
+# Other Swift Style Guides
 
 If ours doesn’t fit your tastes, have a look at some other style guides:
 
-* [Google](http://google-styleguide.googlecode.com/svn/trunk/objcguide.xml)
-* [GitHub](https://github.com/github/objective-c-conventions)
-* [Adium](https://trac.adium.im/wiki/CodingStyle)
-* [Sam Soffes](https://gist.github.com/soffes/812796)
-* [CocoaDevCentral](http://cocoadevcentral.com/articles/000082.php)
-* [Luke Redpath](http://lukeredpath.co.uk/blog/2011/06/28/my-objective-c-style-guide/)
-* [Marcus Zarra](http://www.cimgf.com/zds-code-style-guide/)
-* [Wikimedia](https://www.mediawiki.org/wiki/Wikimedia_Apps/Team/iOS/ObjectiveCStyleGuide)
+* [GitHub](https://github.com/github/swift-style-guide)
+* [NetGuru](https://github.com/netguru/swift-style-guide)
+* [Ray Wenderlich](https://github.com/raywenderlich/swift-style-guide)
+* [Sport Ngin](http://sportngin.github.io/styleguide/swift.html)
