@@ -44,9 +44,7 @@ This guide is based on the following sources:
 
 ## Organization
 
-* There should be one blank line between methods to aid in visual clarity and organization.
-* There should be two blank lines between classes or extensions within the same file.
-* End files with an empty line.
+There should be one blank line between methods to aid in visual clarity and organization. There should be two blank lines between classes or extensions within the same file. End files with an empty line.
 
 Use `// MARK:`s to categorize methods into functional groupings and protocol implementations. Place two blank lines above the mark unless it is the first statement in the body. Place one blank line after the mark.
 
