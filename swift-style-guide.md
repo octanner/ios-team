@@ -15,31 +15,31 @@ This guide is based on the following sources:
 * [Organization](#organization)
   * [Remove Unused Code](#remove-unused-code)
 * [Spacing](#spacing)
-* [Conditionals](#conditionals)
-  * [Ternary Operator](#ternary-operator)
-  * [Nil Coalescing Operator](#nil-coalescing-operator)
-* [Error handling](#error-handling)
+* [Imports](#imports)
+* [init & deinit](#init-and-deinit)
 * [Modifier Keyword Order](#modifier-keyword-order)
+* [Naming](#naming)
+  * [Image Naming](#image-naming)
+* [Constants](#constants)
+  * [Singletons](#singletons)
+* [Enumerated Types](#enumerated-types)
+* [Implicit Getters](#implicit-getters)
+* [Private Properties](#private-properties)
+* [Typed Collection Initialization](#typed-collection-initialization)
 * [Variables](#variables)
   * [Colon Placement](#colon-placement)
   * [Native Over Bridged](#native-over-bridged)
   * [Mutability](#mutability-let-over-var)
 * [Optionals](#optionals)
+* [Conditionals](#conditionals)
+  * [Ternary Operator](#ternary-operator)
+  * [Nil Coalescing Operator](#nil-coalescing-operator)
+* [Explicit References to Self](#explicit-references-to-self)
 * [Static vs. Dynamic Code](#static-vs-dynamic-code)
-* [Naming](#naming)
 * [Extensions](#extensions)
 * [Comments](#comments)
   * [Generated Documentation Comments](#generated-documentation-comments)
-* [init & deinit](#init-and-deinit)
-* [Typed Collection Initialization](#typed-collection-initialization)
-* [Constants](#constants)
-* [Enumerated Types](#enumerated-types)
-* [Private Properties](#private-properties)
-* [Implicit Getters](#implicit-getters)
-* [Explicit References to Self](#explicit-references-to-self)
-* [Image Naming](#image-naming)
-* [Singletons](#singletons)
-* [Imports](#imports)
+* [Error handling](#error-handling)
 * [Xcode Project](#xcode-project)
 
 ## Organization
@@ -111,67 +111,19 @@ if (user.isHappy) {
 }
 ```
 
-## Conditionals
+## Imports
 
-Prefer `guard` statements written on a single line. Write `if` statements on multiple lines.
-
-**For example:**
-```swift
-guard let user = currentUser else { return }
-```
-
-and
-```swift
-if (!error) {
-    return success
-}
-```
-
-
-**Not:**
-```swift
-guard let user = currentUser else {
-    return
-}
-```
-
-and not:
+If there is more than one `import` statement, order the statements alphabetically. This allows for easy removal when you no longer need that module in your code.
 
 ```swift
-if (!error) { return success }
+import CoreData
+import ModelModule
+import QuartzCore
 ```
 
-### Ternary Operator
+## init and deinit
 
-The ternary operator, `?`, should only be used when it increases clarity or code neatness. A single condition is usually all that should be evaluated. Evaluating multiple conditions is usually more understandable as an if statement, or refactored into named variables.
-
-**For example:**
-```swift
-result = a > b ? x : y;
-```
-
-**Not:**
-```swift
-result = a > b ? x = c > d ? c : d : y;
-```
-
-### Nil Coalescing Operator
-
-Use the Nil Coalescing Operator, `??`, instead of using the ternary operator to check for `nil` and provide a default value when assigning values to non-optional variables.
-
-**For example:**
-```swift
-let apple = optionalApple ?? redDelicious
-```
-
-**Not:**
-```swift
-let apple = optionalApple != nil ? optionalApple! : redDelicious
-```
-
-## Error Handling
-
-> TODO: Discuss `try` and `catch` here, and give guidance on when to use those versus other approaches.
+`deinit` methods should be placed at the top of the class body, directly after the property declarations. `init` should be placed directly below the `deinit` methods of any class.
 
 ## Modifier Keyword Order
 
@@ -197,6 +149,174 @@ When you declare a type, method or property, follow a consistent ordering of any
 override public class final func someMethod() {
     // Method body
 }
+```
+
+## Naming
+
+Apple naming conventions should be adhered to wherever possible. Long, descriptive method and variable names are good.
+
+**For example:**
+
+```swift
+let settingsButton: UIButton
+```
+
+**Not**
+
+```swift
+let setBut: UIButton
+```
+
+Constants should be camel-case with all words capitalized and prefixed by the related class name for clarity.
+
+**For example:**
+
+```swift
+let ArticleViewControllerNavigationFadeAnimationDuration = 0.3
+```
+
+**Not:**
+
+```swift
+let fadetime = 1.7
+```
+
+Properties and local variables should be camel-case with the leading word being lowercase.
+
+### Image Naming
+
+Image names should be chosen consistently to preserve organization and developer sanity. They should be named as one camel case string with a description of their purpose, followed by the un-prefixed name of the class or property they are customizing (if there is one), followed by a further description of color and/or placement, and finally their state.
+
+**For example:**
+
+* `RefreshBarButtonItem` / `RefreshBarButtonItem@2x` and `RefreshBarButtonItemSelected` / `RefreshBarButtonItemSelected@2x`
+* `ArticleNavigationBarWhite` / `ArticleNavigationBarWhite@2x` and `ArticleNavigationBarBlackSelected` / `ArticleNavigationBarBlackSelected@2x`.
+
+Images that are used for a similar purpose should be grouped in respective groups in an Images folder or Asset Catalog.
+
+## Constants
+
+Constants are preferred over in-line string literals or numbers, as they allow for easy reproduction of commonly used variables and can be quickly changed without the need for find and replace. Constants should be declared as `static private let` values on the type that uses them.
+
+**For example:**
+
+```swift
+class User {
+
+    static private let userKey = "user"
+    static private let nameKey = "name"
+
+}
+```
+
+**Not:**
+
+```swift
+private let userKey = "user"
+private let nameKey = "name"
+
+class User {
+
+}
+```
+
+### Singletons
+
+Singleton objects should use the simple thread-safe pattern for creating their shared instance.
+
+```swift
+class Thermometer {
+
+    static let sharedInstance = Thermometer()
+
+}
+```
+
+## Enumerated Types
+
+When using `enum`s, reserve using raw types for enums whose raw values are used in storage or other I/O. All other enums should be declared without a raw value.
+
+**Example:**
+
+```swift
+enum TemperatureUnit: String {
+    case Kelvin = "K"
+    case Celsius = "C"
+    case Farenheit = "F"
+}
+
+enum FeedCellType {
+    case StoryCell
+    case AdCell
+}
+```
+
+## Implicit getters
+
+Read-only computed properties don't need an explicit getter, thus it can be ommited. This also applies to read-only subscripts.
+
+```swift
+struct Person {
+
+    let height: Float
+    let weight: Float
+
+    var bmi: Float {
+        return weight / (height * height)
+    }
+
+}
+```
+
+## Private Properties
+
+Private properties should be used where possible, hiding how a class does its work and allowing it to change over time without impacting surrounding classes. All non-private properties should be considered part of a class's published API, and changes to those will likely cause a ripple of changes to other classes. Read-only `@NSManaged` properties should declare their setters to be private.
+
+**For example:**
+
+```swift
+class PatientVitals {
+
+    @NSManaged public private(set) var dateCreated: NSDate?
+
+    @NSManaged private var temperatureCelsius: NSDecimalNumber?
+    public var temperature: Temperature? {
+      // Convert from decimal to struct
+    }
+
+}
+```
+
+## Typed Collection Initialization
+
+Typed collections should be initialized with literal values where possible. When building collection contents dynamically, initialize them with the type declaration on the right-hand side of the expression. Property declarations providing an initial value should follow these conventions.
+
+**For example:**
+
+```swift
+let names = ["Brian", "Matt", "Chris", "Alex", "Steve", "Paul"]
+let productManagers = ["iPhone" : "Kate", "iPad" : "Kamal", "Mobile Web" : "Bill" ]
+```
+
+or:
+
+```swift
+var developers = [String]()
+var developersByTeam = [String:String]()
+```
+
+**Not:**
+
+```swift
+var names = [String]()
+names = ["Brian", "Matt", "Chris", "Alex", "Steve", "Paul"]
+```
+
+and not:
+
+```swift
+var developers: Array<String> = Array()
+var developersByTeam: Dictionary<String:String> = Dictionary()
 ```
 
 ## Variables
@@ -295,175 +415,62 @@ override func viewDidLoad() {
 }
 ```
 
-## Static vs. dynamic code
+## Conditionals
 
-Static code is code where logic and control can be resolved at compile-time. The Swift compiler is able to optimize predictable code to work better and faster. Try to make use of this feature and write as much static code as possible.
-
-On the other hand, dynamic code's control flow is resolved at run-time, which means it's not predictable and, as a result, can't be optimized by the compiler. Avoid using `dynamic` and `@objc` attributes.
-
-## Naming
-
-Apple naming conventions should be adhered to wherever possible. Long, descriptive method and variable names are good.
+Prefer `guard` statements written on a single line. Write `if` statements on multiple lines.
 
 **For example:**
-
 ```swift
-let settingsButton: UIButton
+guard let user = currentUser else { return }
 ```
 
-**Not**
-
+and
 ```swift
-let setBut: UIButton
+if (!error) {
+    return success
+}
 ```
 
-Constants should be camel-case with all words capitalized and prefixed by the related class name for clarity.
-
-**For example:**
-
-```swift
-let ArticleViewControllerNavigationFadeAnimationDuration = 0.3
-```
 
 **Not:**
-
 ```swift
-let fadetime = 1.7
-```
-
-Properties and local variables should be camel-case with the leading word being lowercase.
-
-### Extensions
-
-> TODO: Describe how and when to use extensions, and how to document them so their separate intents are obvious.
-
-## Comments
-
-When they are needed, comments should be used to explain **why** a particular piece of code does something. Any comments that are used must be kept up-to-date or deleted.
-
-Block comments should generally be avoided, as code should be as self-documenting as possible, with only the need for intermittent, few-line explanations. This does not apply to those comments used to generate documentation.
-
-### Generated Documentation Comments
-
-Each type declaration should have a description of its intended purpose in a document-generating comment. Functions should have doc comments when doing so would clarify the use of the function beyond its name and declaration of parameters.
-
-> TODO: show good and bad doc
-
-## init and deinit
-
-`deinit` methods should be placed at the top of the class body, directly after the property declarations. `init` should be placed directly below the `deinit` methods of any class.
-
-## Typed Collection Initialization
-
-Typed collections should be initialized with literal values where possible. When building collection contents dynamically, initialize them with the type declaration on the right-hand side of the expression. Property declarations providing an initial value should follow these conventions.
-
-**For example:**
-
-```swift
-let names = ["Brian", "Matt", "Chris", "Alex", "Steve", "Paul"]
-let productManagers = ["iPhone" : "Kate", "iPad" : "Kamal", "Mobile Web" : "Bill" ]
-```
-
-or:
-
-```swift
-var developers = [String]()
-var developersByTeam = [String:String]()
-```
-
-**Not:**
-
-```swift
-var names = [String]()
-names = ["Brian", "Matt", "Chris", "Alex", "Steve", "Paul"]
+guard let user = currentUser else {
+    return
+}
 ```
 
 and not:
 
 ```swift
-var developers: Array<String> = Array()
-var developersByTeam: Dictionary<String:String> = Dictionary()
+if (!error) { return success }
 ```
 
-## Constants
+### Ternary Operator
 
-Constants are preferred over in-line string literals or numbers, as they allow for easy reproduction of commonly used variables and can be quickly changed without the need for find and replace. Constants should be declared as `static private let` values on the type that uses them.
+The ternary operator, `?`, should only be used when it increases clarity or code neatness. A single condition is usually all that should be evaluated. Evaluating multiple conditions is usually more understandable as an if statement, or refactored into named variables.
 
 **For example:**
-
 ```swift
-class User {
-
-    static private let userKey = "user"
-    static private let nameKey = "name"
-
-}
+result = a > b ? x : y;
 ```
 
 **Not:**
-
 ```swift
-private let userKey = "user"
-private let nameKey = "name"
-
-class User {
-
-}
+result = a > b ? x = c > d ? c : d : y;
 ```
 
-## Enumerated Types
+### Nil Coalescing Operator
 
-When using `enum`s, reserve using raw types for enums whose raw values are used in storage or other I/O. All other enums should be declared without a raw value.
-
-**Example:**
-
-```swift
-enum TemperatureUnit: String {
-    case Kelvin = "K"
-    case Celsius = "C"
-    case Farenheit = "F"
-}
-
-enum FeedCellType {
-    case StoryCell
-    case AdCell
-}
-```
-
-## Private Properties
-
-Private properties should be used where possible, hiding how a class does its work and allowing it to change over time without impacting surrounding classes. All non-private properties should be considered part of a class's published API, and changes to those will likely cause a ripple of changes to other classes. Read-only `@NSManaged` properties should declare their setters to be private.
+Use the Nil Coalescing Operator, `??`, instead of using the ternary operator to check for `nil` and provide a default value when assigning values to non-optional variables.
 
 **For example:**
-
 ```swift
-class PatientVitals {
-
-    @NSManaged public private(set) var dateCreated: NSDate?
-
-    @NSManaged private var temperatureCelsius: NSDecimalNumber?
-    public var temperature: Temperature? {
-      // Convert from decimal to struct
-    }
-
-}
+let apple = optionalApple ?? redDelicious
 ```
 
-## Implicit getters
-
-Read-only computed properties don't need an explicit getter, thus it can be ommited. This also applies to read-only subscripts.
-
+**Not:**
 ```swift
-struct Person {
-
-    let height: Float
-    let weight: Float
-
-    var bmi: Float {
-        return weight / (height * height)
-    }
-
-}
+let apple = optionalApple != nil ? optionalApple! : redDelicious
 ```
 
 ## Explicit references to `self`
@@ -488,38 +495,31 @@ struct Person {
 }
 ```
 
-## Image Naming
+## Static vs. dynamic code
 
-Image names should be chosen consistently to preserve organization and developer sanity. They should be named as one camel case string with a description of their purpose, followed by the un-prefixed name of the class or property they are customizing (if there is one), followed by a further description of color and/or placement, and finally their state.
+Static code is code where logic and control can be resolved at compile-time. The Swift compiler is able to optimize predictable code to work better and faster. Try to make use of this feature and write as much static code as possible.
 
-**For example:**
+On the other hand, dynamic code's control flow is resolved at run-time, which means it's not predictable and, as a result, can't be optimized by the compiler. Avoid using `dynamic` and `@objc` attributes.
 
-* `RefreshBarButtonItem` / `RefreshBarButtonItem@2x` and `RefreshBarButtonItemSelected` / `RefreshBarButtonItemSelected@2x`
-* `ArticleNavigationBarWhite` / `ArticleNavigationBarWhite@2x` and `ArticleNavigationBarBlackSelected` / `ArticleNavigationBarBlackSelected@2x`.
+## Extensions
 
-Images that are used for a similar purpose should be grouped in respective groups in an Images folder or Asset Catalog.
+> TODO: Describe how and when to use extensions, and how to document them so their separate intents are obvious.
 
-## Singletons
+## Comments
 
-Singleton objects should use the simple thread-safe pattern for creating their shared instance.
+When they are needed, comments should be used to explain **why** a particular piece of code does something. Any comments that are used must be kept up-to-date or deleted.
 
-```swift
-class Thermometer {
+Block comments should generally be avoided, as code should be as self-documenting as possible, with only the need for intermittent, few-line explanations. This does not apply to those comments used to generate documentation.
 
-    static let sharedInstance = Thermometer()
+### Generated Documentation Comments
 
-}
-```
+Each type declaration should have a description of its intended purpose in a document-generating comment. Functions should have doc comments when doing so would clarify the use of the function beyond its name and declaration of parameters.
 
-## Imports
+> TODO: show good and bad doc
 
-If there is more than one `import` statement, order the statements alphabetically. This allows for easy removal when you no longer need that module in your code.
+## Error Handling
 
-```swift
-import CoreData
-import ModelModule
-import QuartzCore
-```
+> TODO: Discuss `try` and `catch` here, and give guidance on when to use those versus other approaches.
 
 ## Xcode project
 
