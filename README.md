@@ -10,7 +10,7 @@ We believe that code reviews are an essential tool for keeping code quality high
 
 ## Coding Style
 
-> We follow New York Times style guide for Objective-C code, and <something else> for Swift code. Any deviations are specified in our style guide amendments.
+> We follow New York Times style guide for Objective-C code, and our [O.C. Tanner style guide for Swift code](./swift-style-guide.md). Any deviations are specified in our style guide amendments.
 
 We believe the best way to keep code readable among a team is to establish a us set coding style. Obviously such as style will involve compromises, but the outcome is worth the effort when everybody can read code written by others.
 
