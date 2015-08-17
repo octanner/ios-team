@@ -135,7 +135,7 @@ When you declare a type, method or property, follow a consistent ordering of any
 
 **For example:**
 ```swift
-@NSManaged public private(set) var name: String
+@NSManaged public private(set) var name: String?
 
 override public class final func someMethod() {
     // Method body
@@ -172,7 +172,7 @@ let text: String
 let text : String
 ```
 
-and not:
+**and not:**
 ```swift
 let text :String
 ```
