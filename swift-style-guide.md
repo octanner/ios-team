@@ -118,12 +118,12 @@ let apple = optionalApple != nil ? optionalApple! : redDelicious
 
 ## Modifier Keyword Order
 
-When you declare a type, method or property, follow a consistent ordering of any modifier keywords used.
+When you declare a type, method or property, follow a consistent ordering of any modifier keywords used. Use access modifiers only if necessary. Pay attention to variables. Use `private` or `private(set)` appropriately. Don't add modifiers if they are are already a default.
 
 * attributes (`@objc`, `@NSManaged`)
 * `override`
 * `public`
-* `internal`
+* `internal`, only if necessary
 * `private`
 * [ `static` | `class` ]
 * [ `required` | `optional` ]
@@ -186,6 +186,45 @@ At all other times, and when in doubt, use `let`.
 It's safer to assume that a variable is immutable, thus it's highly recommended to declare values as constants, using `let`. Immutable constants ensure their values will never change, which results in less error-prone code.
 
 Whenever you see a `var` identifier being used, assume that it will change and ask yourself why.
+
+## Optionals
+
+Force unwrapping should be avoided as much as possible. Implicitly unwrapped optionals lead to less safe code and can cause unwanted crashes. Use optional chaining or `if-let` bindings to unwrap optional values.
+
+```swift
+let user: User? = findUserById(123)
+
+if let user = user {
+    println("found user \(user.name) with id \(user.id)")
+}
+```
+
+Unwrapping several optionals in nested `if-let` statements is forbidden, as it leads to "pyramid of doom". Swift allows you to unwrap multiple optionals in one statement.
+
+```swift
+let name: String?
+let age: Int?
+
+if let name = name, age = age where age >= 13 {
+    /* ... */
+}
+```
+
+However, implicitly unwrapped optionals can sometimes be useful. They may be used in unit tests, where system under test should never be `nil` and there's no point executing the application if it is. Examples include `@IBOutlet`s or `NSManagedObjectContext`s set on view controllers before their use.
+
+```swift
+var context: NSManagedObjectContext!
+
+override func viewDidLoad() {
+    // Load the data for this view using the context
+}
+```
+
+## Static vs. dynamic code
+
+Static code is code where logic and control can be resolved at compile-time. The Swift compiler is able to optimize predictable code to work better and faster. Try to make use of this feature and write as much static code as possible.
+
+On the other hand, dynamic code's control flow is resolved at run-time, which means it's not predictable and, as a result, can't be optimized by the compiler. Avoid using `dynamic` and `@objc` attributes.
 
 ## Naming
 
@@ -318,7 +357,7 @@ enum FeedCellType {
 
 ## Private Properties
 
-Private properties should be used where possible, hiding how a class does its work and allowing it to change over time without impacting surrounding classes. All non-private properties should be considered part of a class's published API, and changes to those will likely cause a ripple of changes to other classes. Read-only properties should declare their setters to be private.
+Private properties should be used where possible, hiding how a class does its work and allowing it to change over time without impacting surrounding classes. All non-private properties should be considered part of a class's published API, and changes to those will likely cause a ripple of changes to other classes. Read-only `@NSManaged` properties should declare their setters to be private.
 
 **For example:**
 
@@ -330,6 +369,45 @@ class PatientVitals {
     @NSManaged private var temperatureCelsius: NSDecimalNumber?
     public var temperature: Temperature? {
       // Convert from decimal to struct
+    }
+
+}
+```
+
+## Implicit getters
+
+Read-only computed properties don't need an explicit getter, thus it can be ommited. This also applies to read-only subscripts.
+
+```swift
+struct Person {
+
+    let height: Float
+    let weight: Float
+
+    var bmi: Float {
+        return weight / (height * height)
+    }
+
+}
+```
+
+## Explicit references to `self`
+
+Explicit references to `self` should only take place in closures and when the language requires it.
+
+```swift
+struct Person {
+
+    let firstName: String
+    let lastName: String
+
+    var fullName: String {
+        return "\(firstName) \(lastName)"
+    }
+
+    init(firstName: String, lastName: String) {
+        self.firstName = firstName
+        self.lastName = lastName
     }
 
 }
