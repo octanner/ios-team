@@ -120,18 +120,23 @@ let apple = optionalApple != nil ? optionalApple! : redDelicious
 
 When you declare a type, method or property, follow a consistent ordering of any modifier keywords used.
 
-* override
-* [ public | internal | private ]
-* [ static | class ]
-* [ required | optional ]
-* final
-* [ mutating | nonmutating ]
-* lazy
-* weak
-* [ class | enum | init | func | let | var, etc. ]
+* attributes (`@objc`, `@NSManaged`)
+* `override`
+* `public`
+* `internal`
+* `private`
+* [ `static` | `class` ]
+* [ `required` | `optional` ]
+* `final`
+* [ `mutating` | `nonmutating` ]
+* `lazy`
+* `weak`
+* [ `class` | `enum` | `init` | `func` | `let` | `var`, etc. ]
 
 **For example:**
 ```swift
+@NSManaged public private(set) var name: String
+
 override public class final func someMethod() {
     // Method body
 }
