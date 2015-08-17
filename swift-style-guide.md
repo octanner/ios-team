@@ -13,10 +13,10 @@ This guide is based on the following sources:
 ## Table of Contents
 
 * [Organization](#organization)
+  * [init & deinit](#init-and-deinit)
   * [Remove Unused Code](#remove-unused-code)
 * [Spacing](#spacing)
 * [Imports](#imports)
-* [init & deinit](#init-and-deinit)
 * [Modifier Keyword Order](#modifier-keyword-order)
 * [Naming](#naming)
   * [Image Naming](#image-naming)
@@ -82,6 +82,10 @@ public class DelayOperation: Operation {
 }
 ```
 
+### init and deinit
+
+`deinit` methods should be placed at the top of the class body, directly after the property declarations. `init` should be placed directly below the `deinit` methods of any class.
+
 ### Remove Unused Code
 
 Don't commit code that will never execute; just delete it. You probably won't ever want it back, and if you do, you'll likely want to rewrite it anyway. And you can always retrieve it from an earlier commit if you have to. This applies to:
@@ -113,32 +117,31 @@ if (user.isHappy) {
 
 If there is more than one `import` statement, order the statements alphabetically. This allows for easy removal when you no longer need that module in your code.
 
+**For example:**
 ```swift
 import CoreData
 import ModelModule
 import QuartzCore
 ```
 
-## init and deinit
-
-`deinit` methods should be placed at the top of the class body, directly after the property declarations. `init` should be placed directly below the `deinit` methods of any class.
-
 ## Modifier Keyword Order
 
 When you declare a type, method or property, follow a consistent ordering of any modifier keywords used. Use access modifiers only if necessary. Pay attention to variables. Use `private` or `private(set)` appropriately. Don't add modifiers if they are are already a default.
 
-* attributes (@objc, @NSManaged, etc.)
-* override
-* public
-* internal, only if necessary
-* private
-* [ static | class ]
-* [ required | optional ]
-* final
-* [ mutating | nonmutating ]
-* lazy
-* weak
-* [ class | enum | init | func | let | var, etc. ]
+```swift
+[ @objc | @NSManaged | other attribute modifiers ]
+override
+public
+internal // only if necessary
+private
+[ static | class ]
+[ required | optional ]
+final
+[ mutating | nonmutating ]
+lazy
+weak
+[ class | enum | init | func | let | var, etc. ]
+```
 
 **For example:**
 ```swift
