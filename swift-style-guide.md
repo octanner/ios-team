@@ -329,7 +329,7 @@ class User {
 
 **Not:**
 
-```objc
+```swift
 private let userKey = "user"
 private let nameKey = "name"
 
@@ -442,7 +442,7 @@ class Thermometer {
 
 If there is more than one `import` statement, order the statements alphabetically. This allows for easy removal when you no longer need that module in your code.
 
-```objc
+```swift
 import CoreData
 import ModelModule
 import QuartzCore
