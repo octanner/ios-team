@@ -23,15 +23,16 @@ This guide is based on the following sources:
 * [Optionals](#optionals)
 * [Static vs. Dynamic Code](#static-vs-dynamic-code)
 * [Naming](#naming)
-  * [Extensions](#extensions)
+* [Extensions](#extensions)
 * [Comments](#comments)
   * [Generated Documentation Comments](#generated-documentation-comments)
-* [Init & Deinit](#init-and-deinit)
+* [init & deinit](#init-and-deinit)
 * [Typed Collection Initialization](#typed-collection-initialization)
 * [Constants](#constants)
 * [Enumerated Types](#enumerated-types)
 * [Private Properties](#private-properties)
-* [Explicit References to Self](#xeplicit-references-to-self)
+* [Implicit Getters](#implicit-getters)
+* [Explicit References to Self](#explicit-references-to-self)
 * [Image Naming](#image-naming)
 * [Singletons](#singletons)
 * [Imports](#imports)
@@ -435,6 +436,7 @@ class Thermometer {
     static let sharedInstance = Thermometer()
 
 }
+```
 
 ## Imports
 
