@@ -122,18 +122,18 @@ let apple = optionalApple != nil ? optionalApple! : redDelicious
 
 When you declare a type, method or property, follow a consistent ordering of any modifier keywords used. Use access modifiers only if necessary. Pay attention to variables. Use `private` or `private(set)` appropriately. Don't add modifiers if they are are already a default.
 
-* attributes (`@objc`, `@NSManaged`)
-* `override`
-* `public`
-* `internal`, only if necessary
-* `private`
-* [ `static` | `class` ]
-* [ `required` | `optional` ]
-* `final`
-* [ `mutating` | `nonmutating` ]
-* `lazy`
-* `weak`
-* [ `class` | `enum` | `init` | `func` | `let` | `var`, etc. ]
+* attributes (@objc, @NSManaged, etc.)
+* override
+* public
+* internal, only if necessary
+* private
+* [ static | class ]
+* [ required | optional ]
+* final
+* [ mutating | nonmutating ]
+* lazy
+* weak
+* [ class | enum | init | func | let | var, etc. ]
 
 **For example:**
 ```swift
