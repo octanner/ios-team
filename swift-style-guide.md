@@ -39,7 +39,7 @@ This guide is based on the following sources:
 * [Extensions](#extensions)
 * [Comments](#comments)
   * [Generated Documentation Comments](#generated-documentation-comments)
-* [Error handling](#error-handling)
+* [Error Handling](#error-handling)
 * [Xcode Project](#xcode-project)
 
 ## Organization
