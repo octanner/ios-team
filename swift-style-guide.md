@@ -46,7 +46,7 @@ This guide is based on the following sources:
 
 There should be one blank line between methods to aid in visual clarity and organization. There should be two blank lines between classes or extensions within the same file. End files with an empty line.
 
-Use `// MARK:`s to categorize methods into functional groupings and protocol implementations. Place two blank lines above the mark unless it is the first statement in the body. Place one blank line after the mark.
+Use `// MARK: -`s to categorize methods into functional groupings and protocol implementations. Place two blank lines above the mark unless it is the first statement in the body. Place one blank line after the mark.
 
 Whitespace within methods should be used to separate functionality (though often this can indicate an opportunity to split the method into several, smaller methods).
 
@@ -55,7 +55,7 @@ Whitespace within methods should be used to separate functionality (though often
 ```swift
 public class DelayOperation: Operation {
 
-    // MARK: Types
+    // MARK: - Types
 
     private enum Delay {
         case Interval(NSTimeInterval)
@@ -63,12 +63,12 @@ public class DelayOperation: Operation {
     }
 
 
-    // MARK: Properties
+    // MARK: - Properties
 
     private let delay: Delay
 
 
-    // MARK: Initialization
+    // MARK: - Initialization
 
     public init(interval: NSTimeInterval) {
         delay = .Interval(interval)
