@@ -254,7 +254,7 @@ enum FeedCellType {
 
 ## Implicit getters
 
-Read-only computed properties don't need an explicit getter, thus it can be ommited. This also applies to read-only subscripts.
+Read-only computed properties don't need an explicit getter, thus it can be omitted. This also applies to read-only subscripts.
 
 ```swift
 struct Person {
