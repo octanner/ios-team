@@ -395,7 +395,7 @@ if let user = user {
 }
 ```
 
-Unwrapping several optionals in nested `if-let` statements is forbidden, as it leads to "pyramid of doom". Swift allows you to unwrap multiple optionals in one statement.
+Unwrapping several optionals in nested `if-let` statements is discouraged, as it leads to the "pyramid of doom". Swift allows you to unwrap multiple optionals in one statement.
 
 ```swift
 let name: String?
