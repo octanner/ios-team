@@ -51,6 +51,8 @@ Use `// MARK: -`s to categorize methods into functional groupings and protocol i
 
 Whitespace within methods should be used to separate functionality (though often this can indicate an opportunity to split the method into several, smaller methods).
 
+Place private methods inside a private extension, below the main definition.
+
 **For example:**
 
 ```swift
@@ -79,6 +81,24 @@ public class DelayOperation: Operation {
     public init(until date: NSDate) {
         delay = .Date(date)
         super.init()
+    }
+
+
+    // MARK: Public methods
+
+    override public execute() {
+        /*  */
+    }
+
+}
+
+
+private extension DelayOperation {
+
+    // MARK: Private methods
+
+    private func verify() {
+        /*  */
     }
 }
 ```
@@ -478,7 +498,7 @@ However, when a method signature includes multiple closures, prefix each to keep
 authenticate(userId, password: password, success: {
     /*  */
 }, failure: { error in
-    /* */
+    /*  */
 })
 ```
 
@@ -487,7 +507,7 @@ authenticate(userId, password: password, success: {
 authenticate(username, password: password, success: {
     /*  */
 }) { error in
-    /* */
+    /*  */
 }
 ```
 
@@ -496,14 +516,14 @@ Because this is much more awkward than trailing closure syntax, create functions
 **For example,**
 ```swift
 func authenticate(username: String, password: password, completion:(NSError) -> Void) {
-  /* */
+  /*  */
 }
 ```
 
 **not**
 ```swift
 func authenticate(username: String, password: password, success: () -> Void, failure:(NSError) -> Void) {
-  /* */
+  /*  */
 }
 ```
 
