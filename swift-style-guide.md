@@ -363,6 +363,36 @@ let text : String
 let text :String
 ```
 
+Colons used in dictionaries should have spaces on either side, except when representing the empty dictionary.
+
+**For example,**
+```swift
+let assignments = ["History" : "Essay V", "Chemistry" : "Experiment #3"]
+```
+
+**and**
+```swift
+class Homework {
+
+    var completedAssignments = [String:String]
+
+    func reset() {
+        completedAssignments = [:]
+    }
+
+}
+```
+
+**not**
+```swift
+let assignments = ["History": "Essay V", "Chemistry": "Experiment #3"]
+```
+
+**and not:**
+```swift
+let assignments = ["History":"Essay V", "Chemistry":"Experiment #3"]
+```
+
 ### Native over bridged
 
 Always use Swift's native types when available. Swift offers bridging to Objective-C so you can still use the full set of methods as needed.
