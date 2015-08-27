@@ -168,18 +168,22 @@ let settingsButton: UIButton
 let setBut: UIButton
 ```
 
-Constants should be camel-case with all words capitalized and prefixed by the related class name for clarity.
+Static constants should be camel-case with all words capitalized to distinguish them from static shared instances. When referencing the constant, it will usually require being prefixed by the related class name.
 
 **For example:**
 
 ```swift
-let ArticleViewControllerNavigationFadeAnimationDuration = 0.3
+class ArticleViewController {
+    static let NavigationFadeAnimationDuration = 0.3
+}
 ```
 
 **Not:**
 
 ```swift
-let fadetime = 1.7
+class ArticleViewController {
+    static let fadetime = 1.7
+}
 ```
 
 Properties and local variables should be camel-case with the leading word being lowercase.
