@@ -31,6 +31,7 @@ This guide is based on the following sources:
   * [Native Over Bridged](#native-over-bridged)
   * [Mutability](#mutability-let-over-var)
 * [Optionals](#optionals)
+* [Closures](#closures)
 * [Conditionals](#conditionals)
   * [Ternary Operator](#ternary-operator)
   * [Nil Coalescing Operator](#nil-coalescing-operator)
@@ -449,6 +450,60 @@ var context: NSManagedObjectContext!
 
 override func viewDidLoad() {
     // Load the data for this view using the context
+}
+```
+
+## Closures
+
+Remove all unneeded elements when using closures, and use trailing closure syntax whenever possible.
+
+**For example,**
+```swift
+dispatch_async(dispatch_get_main_queue()) {
+    /*  */
+}
+```
+
+**not**
+```swift
+dispatch_async(dispatch_get_main_queue(), { () -> Void in
+    /*  */
+})
+```
+
+However, when a method signature includes multiple closures, prefix each to keep it clear what each closure is for.
+
+**For example,**
+```swift
+authenticate(userId, password: password, success: {
+    /*  */
+}, failure: { error in
+    /* */
+})
+```
+
+**not**
+```swift
+authenticate(username, password: password, success: {
+    /*  */
+}) { error in
+    /* */
+}
+```
+
+Because this is much more awkward than trailing closure syntax, create functions which are friendly to trailing closure syntax.
+
+**For example,**
+```swift
+func authenticate(username: String, password: password, completion:(NSError) -> Void) {
+  /* */
+}
+```
+
+**not**
+```swift
+func authenticate(username: String, password: password, success: () -> Void, failure:(NSError) -> Void) {
+  /* */
 }
 ```
 
