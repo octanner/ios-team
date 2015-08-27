@@ -38,10 +38,7 @@ This guide is based on the following sources:
 * [Explicit References to Self](#explicit-references-to-self)
 * [Static vs. Dynamic Code](#static-vs-dynamic-code)
 * [Extensions](#extensions)
-* [Comments](#comments)
-  * [Generated Documentation Comments](#generated-documentation-comments)
 * [Error Handling](#error-handling)
-* [Xcode Project](#xcode-project)
 
 ## Organization
 
@@ -617,27 +614,9 @@ On the other hand, dynamic code's control flow is resolved at run-time, which me
 
 > TODO: Describe how and when to use extensions, and how to document them so their separate intents are obvious.
 
-## Comments
-
-When they are needed, comments should be used to explain **why** a particular piece of code does something. Any comments that are used must be kept up-to-date or deleted.
-
-Block comments should generally be avoided, as code should be as self-documenting as possible, with only the need for intermittent, few-line explanations. This does not apply to those comments used to generate documentation.
-
-### Generated Documentation Comments
-
-Each type declaration should have a description of its intended purpose in a document-generating comment. Functions should have doc comments when doing so would clarify the use of the function beyond its name and declaration of parameters.
-
-> TODO: show good and bad doc
-
 ## Error Handling
 
 > TODO: Discuss `try` and `catch` here, and give guidance on when to use those versus other approaches.
-
-## Xcode project
-
-The physical files should be kept in sync with the Xcode project files in order to avoid file sprawl. Any Xcode groups created should be reflected by folders in the filesystem. Code should be grouped not only by type, but also by feature for greater clarity.
-
-When possible, always turn on “Treat Warnings as Errors” in the target’s Build Settings and enable as many [additional warnings](http://boredzo.org/blog/archives/2009-11-07/warnings) as possible. If you need to ignore a specific warning, use [Clang’s pragma feature](http://clang.llvm.org/docs/UsersManual.html#controlling-diagnostics-via-pragmas).
 
 # Other Swift Style Guides
 
