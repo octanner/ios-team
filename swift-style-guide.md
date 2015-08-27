@@ -225,9 +225,9 @@ class User {
 }
 ```
 
-### Singletons
+### Singletons & Shared Instances
 
-Singleton objects should use the simple thread-safe pattern for creating their shared instance.
+Singleton objects and shared instances should use the simple thread-safe pattern for creating their shared instance. Use the name `sharedInstance` when instantiating a private instance is possible, but rare (similar to `NSURLSession.sharedSession()`). Use `defaultInstance` when it's common to instantiate a private instance, but convenient to have a default instance (similar to `NSURLSessionConfiguration.defaultSessionConfiguration()`).
 
 ```swift
 class Thermometer {
@@ -236,6 +236,8 @@ class Thermometer {
 
 }
 ```
+
+Additionally, true singleton classes should declare all initializers as `private`.
 
 ## Enumerated Types
 
