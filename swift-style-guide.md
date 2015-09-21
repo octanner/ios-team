@@ -320,7 +320,7 @@ Typed collections should be initialized with literal values where possible. When
 
 ```swift
 let names = ["Brian", "Matt", "Chris", "Alex", "Steve", "Paul"]
-let productManagers = ["iPhone" : "Kate", "iPad" : "Kamal", "Mobile Web" : "Bill" ]
+let productManagers = ["iPhone": "Kate", "iPad": "Kamal", "Mobile Web": "Bill" ]
 ```
 
 or:
@@ -381,11 +381,12 @@ let text : String
 let text :String
 ```
 
-Colons used in dictionaries should have spaces on either side, except when representing the empty dictionary.
+Colons used in dictionaries should follow a similar pattern, and be placed next to the keys of the dictionary.
 
 **For example,**
 ```swift
-let assignments = ["History" : "Essay V", "Chemistry" : "Experiment #3"]
+let chemistry = "Chemistry"
+let assignments = ["History": "Essay V", chemistry: "Experiment #3"]
 ```
 
 **and**
@@ -403,12 +404,14 @@ class Homework {
 
 **not**
 ```swift
-let assignments = ["History": "Essay V", "Chemistry": "Experiment #3"]
+let chemistry = "Chemistry"
+let assignments = ["History" : "Essay V", chemistry : "Experiment #3"]
 ```
 
 **and not:**
 ```swift
-let assignments = ["History":"Essay V", "Chemistry":"Experiment #3"]
+let chemistry = "Chemistry"
+let assignments = ["History":"Essay V", chemistry:"Experiment #3"]
 ```
 
 ### Native over bridged
