@@ -560,12 +560,12 @@ The ternary operator, `?`, should only be used when it increases clarity or code
 
 **For example:**
 ```swift
-result = a > b ? x : y;
+result = a > b ? x : y
 ```
 
 **Not:**
 ```swift
-result = a > b ? x = c > d ? c : d : y;
+result = a > b ? x = c > d ? c : d : y
 ```
 
 ### Nil Coalescing Operator
@@ -584,7 +584,7 @@ let apple = optionalApple != nil ? optionalApple! : redDelicious
 
 ## Explicit references to `self`
 
-Explicit references to `self` should only take place in closures and when the language requires it.
+Explicit references to `self` should only take place when the language requires it.
 
 ```swift
 struct Person {
