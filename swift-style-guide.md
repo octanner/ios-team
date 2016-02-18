@@ -219,15 +219,15 @@ Images that are used for a similar purpose should be grouped in respective group
 
 ## Constants
 
-Constants are preferred over in-line string literals or numbers, as they allow for easy reproduction of commonly used variables and can be quickly changed without the need for find and replace. Constants should be declared as `static private let` values on the type that uses them.
+Constants are preferred over in-line string literals or numbers, as they allow for easy reproduction of commonly used variables and can be quickly changed without the need for find and replace. Constants should be declared as `private static let` values on the type that uses them.
 
 **For example:**
 
 ```swift
 class User {
 
-    static private let userKey = "user"
-    static private let nameKey = "name"
+    private static let userKey = "user"
+    private static let nameKey = "name"
 
 }
 ```
