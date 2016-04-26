@@ -6,6 +6,7 @@ This style guide outlines the coding conventions of the iOS team at O.C. Tanner.
 
 This guide is based on the following sources:
 
+* [Swift API Design Guidelines](https://swift.org/documentation/api-design-guidelines/)
 * [NYTimes Objective-C Style Guide](https://github.com/NYTimes/objective-c-style-guide)
 * [Netguru's Swift Style Guide](https://github.com/netguru/swift-style-guide)
 * [Sport Ngin Style Guide](http://sportngin.github.io/styleguide/swift.html)
@@ -44,13 +45,9 @@ This guide is based on the following sources:
 
 There should be one blank line between methods to aid in visual clarity and organization. There should be two blank lines between classes or extensions within the same file. End files with an empty line.
 
-Use `// MARK: -`s to categorize methods into functional groupings and protocol implementations. Place two blank lines above the mark unless it is the first statement in the body. Place one blank line after the mark.
+Use `// MARK: -`s to categorize methods into functional groupings and protocol implementations. Place two blank lines above the mark unless it is the first statement in the body. Place one blank line after the mark. In smaller files (say less that 100ish LOC), the code should be easy enough to follow that `// MARK` is unecessary.
 
-Whitespace within methods should be used to separate functionality (though often this can indicate an opportunity to split the method into several, smaller methods).
-
-Place private methods inside a private extension, below the main definition.
-
-**For example:**
+For example, assuming the file is larger than 100 LOC:
 
 ```swift
 public class DelayOperation: Operation {
@@ -87,16 +84,19 @@ public class DelayOperation: Operation {
         /*  */
     }
 
+    // ... more functions
+
 }
+```
+
+Whitespace within methods should be used to separate functionality (though often this can indicate an opportunity to split the method into several, smaller methods). Use comments where appropriate, but realize that comments (like the aforementioned white space) can also indicate a further opportunity to decompose your method, or use more clear naming. Also, if your file gets large enough to merit several `// MARK`, this might be a yet another sign that you need to consider some decomposition, or that you are not following the [Single Responsibility Principle](https://en.wikipedia.org/wiki/Single_responsibility_principle).
+
+### Extensions for protocol conformance
 
 
-private extension DelayOperation {
-
-    // MARK: Private methods
-
-    private func verify() {
-        /*  */
-    }
+```swift
+extension MyViewController: UITableViewDelegate {
+	// ... Delegate method implementations
 }
 ```
 
@@ -186,13 +186,13 @@ let settingsButton: UIButton
 let setBut: UIButton
 ```
 
-Static constants should be camel-case with all words capitalized to distinguish them from static shared instances. When referencing the constant, it will usually require being prefixed by the related class name.
+Static constants should be camel-case. When referencing the constant, it will usually require being prefixed by the related class name.
 
 **For example:**
 
 ```swift
 class ArticleViewController {
-    static let NavigationFadeAnimationDuration = 0.3
+    static let navigationFadeAnimationDuration = 0.3
 }
 ```
 
@@ -256,6 +256,19 @@ class Thermometer {
 ```
 
 Additionally, true singleton classes should declare all initializers as `private`.
+
+It is better to prefer shared instances over true singletons. This allows for dependency injection and more testability.
+
+When a class uses a sharedInstance internally, always use it like this:
+
+```swift
+class MyViewController: UIViewController {
+	var manager = SomeManager.sharedManager
+}
+```
+
+Then, _always_ use the `manager`, and never `SomeManager.sharedManager` directly. This allows you to replace `manager` with a mock.
+
 
 ## Enumerated Types
 
