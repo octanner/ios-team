@@ -47,9 +47,9 @@ This guide is based on the following sources:
 
 There should be one blank line between methods to aid in visual clarity and organization. There should be two blank lines between classes or extensions within the same file. End files with an empty line.
 
-Use `// MARK: -`s to categorize methods into functional groupings and protocol implementations. Place two blank lines above the mark unless it is the first statement in the body. Place one blank line after the mark. In smaller files (say less that 100ish LOC), the code should be easy enough to follow that `// MARK` is unecessary.
+Use `// MARK: -` to categorize methods into functional groupings and protocol implementations. Place two blank lines above the mark unless it is the first statement in the body. Place one blank line after the mark. In smaller files (say less that 100ish LOC), the code should be easy enough to follow that `// MARK` is unecessary.
 
-For example: assuming the file is larger than 100 LOC:
+**For example:** (assuming the file is larger than 100 LOC)
 
 ```swift
 public class DelayOperation: Operation {
@@ -210,7 +210,7 @@ Images that are used for a similar purpose should be grouped in respective group
 
 ## Constants
 
-Constants are preferred over in-line string literals or numbers, as they allow for easy reproduction of commonly used variables and can be quickly changed without the need for find and replace. Constants should be declared as `private static let` on the object if used in multiple functions, otherewise a simple `let` inside the function will suffice.
+Constants are preferred over in-line string literals or numbers, as they allow for easy reproduction of commonly used variables and can be quickly changed without the need for find and replace. Constants should be declared as `private static let` if used in multiple functions, otherewise a simple local `let` inside the function will suffice.
 
 **For example:**
 
@@ -250,7 +250,7 @@ Additionally, true singleton classes should declare all initializers as `private
 
 It is better to prefer shared instances over true singletons. This allows for dependency injection and more testability.
 
-When a class uses a shared instance internally, always use it like this:
+When a class uses a shared instance internally, always declare a property for it like this:
 
 ```swift
 class MyViewController: UIViewController {
@@ -258,7 +258,7 @@ class MyViewController: UIViewController {
 }
 ```
 
-Then, _always_ use the `manager`, and never `SomeManager.sharedManager` directly. This allows you to replace `manager` with a mock.
+Then, _always_ use the declared property, and never `SomeManager.sharedManager` directly. This allows you to replace `manager` with a mock.
 
 
 ## Enumerated Types
@@ -325,7 +325,7 @@ class PatientVitals {
 }
 ```
 
-## Collection Syntactic Sugar
+## Collections
 
 We use the syntactic sugar provided by Swift when working with `Array` and `Dictionary`.
 
@@ -341,9 +341,9 @@ let numbers: Array<Int>
 let json: Dictionary<String, AnyObject>
 ```
 
-## Typed Collection Initialization
+If you find yourself having too many nested arrays or dictionaries, it's time for some `typealias`.
 
-Typed collections should be initialized with literal values where possible. When building collection contents dynamically, initialize them with the type declaration on the right-hand side of the expression. Property declarations providing an initial value should follow these conventions.
+Collections should be initialized with literal values where possible. When building collection contents dynamically, initialize them with the type declaration on the right-hand side of the expression. Property declarations providing an initial value should follow these conventions.
 
 **For example:**
 
@@ -356,7 +356,7 @@ or:
 
 ```swift
 var developers = [String]()
-var developersByTeam = [String:String]()
+var developersByTeam = [String: String]()
 ```
 
 **Not:**
@@ -368,7 +368,7 @@ names = ["Brian", "Matt", "Chris", "Alex", "Steve", "Paul"]
 
 ## Variables
 
-Variables should be named descriptively, with the variable’s name clearly communicating what the variable _is_ and pertinent information a programmer needs to use that value properly.
+Variables names should clearly communicate what the variable _is_ and pertinent information a programmer needs to use that value properly.
 
 Use implicit typing. This creates a greater need for thoughtful variable names which lead to reasonable assumptions about their types.
 
@@ -407,7 +407,6 @@ Colons used in dictionaries should follow a similar pattern, and be placed next 
 
 **For example:**
 ```swift
-let chemistry = "Chemistry"
 let assignments = ["History": "Essay V", chemistry: "Experiment #3"]
 ```
 
@@ -415,7 +414,7 @@ let assignments = ["History": "Essay V", chemistry: "Experiment #3"]
 ```swift
 class Homework {
 
-    var completedAssignments = [String:String]
+    var completedAssignments = [String: String]
 
     func reset() {
         completedAssignments = [:]
@@ -426,13 +425,11 @@ class Homework {
 
 **not**
 ```swift
-let chemistry = "Chemistry"
 let assignments = ["History" : "Essay V", chemistry : "Experiment #3"]
 ```
 
 **and not:**
 ```swift
-let chemistry = "Chemistry"
 let assignments = ["History":"Essay V", chemistry:"Experiment #3"]
 ```
 
