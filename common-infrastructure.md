@@ -81,6 +81,12 @@ Alternatives denied:
 
 ### Github — Code
 
+### ben/RateThisApp — Request app ratings
+
+### ben/ShareThisApp — Share the app
+
+### ben/EmailSupport — Send a support request email
+
 
 
 
