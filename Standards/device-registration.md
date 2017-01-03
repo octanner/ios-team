@@ -42,6 +42,16 @@ Then create the following JSON to send to the push notification server. Note tha
     "name" : "iOS",
     "version" : "10.1"
   },
+  "notification_settings" : {
+    "lockScreen" : "enabled",
+    "alert" : "enabled",
+    "alertStyle" : "banner",
+    "badge" : "enabled",
+    "notificationCenter" : "enabled",
+    "sound" : "enabled",
+    "carPlay" : "notSupported",
+    "authorization" : "authorized"
+  },
   "app" : {
     "name" : "Great Work",
     "version" : "2.5.2",
