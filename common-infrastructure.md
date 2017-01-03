@@ -8,20 +8,132 @@ Items listed here include tools, libraries, conventions, and processes.
 
 This is currently just a brain dump of everything I can think of. Over time we'll actually discuss and solidify each item, and things will start to take shape.
 
+
 ## Required
 
 These items are required for each project we publish. Exceptions must be approved by the larger iOS team after a rousing debate of the merits and aims of removing the item.
 
+
 ### SwiftyBeaver — Logging
 
-Unique value:
-Use & Conventions:
-People benefitted:
-Alternatives denied:
+_It's awesome because:_
 
-### Marshal — JSON
+_Tips & Conventions:_
+
+_People it helps:_
+
+* iOS devs
+* API devs
+* Ops
+
+_Alternatives we don't want to use:_
+
+
+### Marshal — JSON Parsing
+
+_It's awesome because:_
+
+It's fast, type-safe, Swift-y, and great. It even lets us pull in `Date`, `URL`, `enum` and other great stuff.
+
+_Tips & Conventions:_
+
+1. Use the `<|` operator as much as possible for readability.
+
+    ```swift
+    init(object: MarshaledObject) throws {
+        nominator = try object <| "nominator"
+        connected = try object <| Keys.connected
+    }
+    ```
+
+1. Define `enum`s with `RawRepresentable` values for great parsing from JSON. For example:
+
+    ```json
+    {
+      "teamMemberId": "axF87b",
+      "noteType": 0,
+      "text": "First, we should play foosball."
+    }
+    ```
+
+    ```swift
+    enum NoteType: Int {
+        case agenda
+        case summary
+    }
+
+    struct TeamMemberNote: Unmarshaling {
+        var teamMemberId: String
+        var noteType: NoteType
+        var text: String
+
+        init(object: MarshaledObject) throws {
+            teamMemberId = try object <| "teamMemberId"
+            noteType = try object <| "noteType"
+            text = try object <| "text"
+        }
+    }
+    ```
+
+1. Parse objects using composite keys when intermediate objects aren't valuable. For example:
+
+    ```swift
+    approval.note = try detailedObject <| "approvalAction.input.noteFromApprover.note"
+    ```
+
+_People it helps:_
+
+* iOS devs
+
+_Alternatives we don't want to use:_
+
+* Plain `[String:Any]` manipulation
+* [SwiftyJSON](https://github.com/SwiftyJSON/SwiftyJSON)
+
 
 ### Reactor — Manage app data flow
+
+_It's awesome because:_
+
+It's crazy-simple. It's reactish. It separates `Command`s from `Event`s. It's got `Middleware`.
+
+_Tips & Conventions:_
+
+1. Use separate files for each `State`, `Command`, or `Event` object. Place these into file system folders and Xcode group folders named `States`, `Commands`, `Events`.
+
+    <img src="reactor-xcode.png" width="197px" alt="Xcode Project navigator with groups for States, Commands, Events.">
+
+1. Make all your `State` and `Event` objects implement `JSONMarshaling`. This is great for emailing support details when errors occur, and improving your own debugging.
+
+    ```swift
+    extension AppState: JSONMarshaling {
+        func jsonObject() -> JSONObject {
+            // details go here...
+        }
+    }
+    ```
+
+    ```swift
+    func emailSupport() {
+        let email = MFMailComposeViewController()
+        email.setSubject("Need support")
+        email.setMessageBody(messageText, isHTML: false)
+        let json = state.recentActions.jsonObject()
+        if let data = try? JSONSerialization.data(withJSONObject: json, options: [.prettyPrinted]) {
+            email.addAttachmentData(data, mimeType: "json", fileName: "recent-actions.json")
+        }
+    }
+    ```
+
+_People it helps:_
+
+* iOS devs
+
+_Alternatives we don't want to use:_
+
+* [ReSwift]()
+* Standard MVC "pass data via `prepare(for segue:, sender:)`"
+
 
 ### XCTest — Unit and UI Testing
 
@@ -47,8 +159,6 @@ Alternatives denied:
 
 ### OneSky — Translation
 
-### Main.pattern — App root view controller
-
 ### SimpleKeychain — Typed Keychain access
 
 ### DeviceInfo — Standardized access to device properties
@@ -57,25 +167,9 @@ Alternatives denied:
 
 ### Paw — API exploration, gathering mock data
 
-### UIColor.pattern — Naming & defining colors
-
-### UIFont.pattern — Naming & defining fonts, handling accessibility sizing
-
-### NSProcessInfo.pattern — Configure database, network, and authentication safely
-
-### Appearance.pattern — Initialize global appearance
-
-### Storyboard.pattern — Segues and initialization from storyboards
-
-### Keys.pattern — Organize dictionary & JSON keys
-
-### StoryboardStyle.pattern — Use style names for font and color choices in storyboards
-
 ### HTMLLabel — Display basic HTML with links and "view more"
 
 ### LaunchKit — AppReviews in Slack
-
-### Pluralize.pattern — Mix numbers and nouns and do it really well
 
 ### Github -> Amazon SQS trigger — Start CI builds on commit
 
@@ -98,39 +192,13 @@ Alternatives denied:
 
 ### ReachabilityReactor — Monitor network reachability with State
 
-### OutstandingRequestState.pattern — State patterns for handling API request status
-
 ### Dateful — Convenient date handling
-
-### Settings.pattern — Handle typed UserDefaults storage + security audit
 
 ### Migrations — Perform actions when installed app version changes
 
-### EnvironmentSwitcher.pattern — Change server environments
-
-### Debug.pattern — Access debug information for bug reporting
-
-### Optimistic.pattern — Update state as if the request worked, back out when error occurs
-
 ### .gitignore — Common configuration for ignoring files on our projects
 
-### Version.pattern — That one thing that's like SemVer but isn't
-
-### TeamCredits.pattern — Give the team credit
-
-### Screenshots.pattern — Automate screenshots in every language
-
-### Demo.pattern — Automate video for store demo
-
-### Glacier.pattern — user data migration patterns, deprecation, etc.
-
 ### ClearTest — Xcode plugin to make test names into readable comments
-
-### Error.pattern — Error handling and passing from low level to UI + translation
-
-### StateClear.pattern — Resetting state when task UI is dismissed
-
-### DemoUser.pattern — App Review account & faking user data
 
 
 
