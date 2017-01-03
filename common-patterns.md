@@ -13,16 +13,19 @@ These things _must_ be done the same way across every project in order to pass a
 ## Table empty state
 
 _Tips & Conventions:_
+
 _Alternatives we don't want to use:_
 
 ## Keyboard handling
 
 _Tips & Conventions:_
+
 _Alternatives we don't want to use:_
 
 ## Table empty state
 
 _Tips & Conventions:_
+
 _Alternatives we don't want to use:_
 
 # Recommended
