@@ -20,7 +20,54 @@ These items are required for each project we publish. Exceptions must be approve
 
 _It's awesome because:_
 
+You can see logs from real users in near real-time. Searching and grouping are also great. The SDK is really lightweight and easy to use.
+
+<img src="swiftybeaver-console.png" width="600" alt="SwiftyBeaver Mac console app">
+
 _Tips & Conventions:_
+
+1. Use consistent `Event` names.
+1. Set the user identifier (see `registerUser` below), so it'll be shown in each log line.
+1. Don't use a cloud destination during testing.
+
+    ```swift
+    struct SwiftyBeaverConfig {
+
+        static fileprivate let console = ConsoleDestination()
+        static fileprivate let cloud = SBPlatformDestination(...)
+
+        static func setupLogging(testing: Bool = false) {
+            log.addDestination(console)
+            if !testing {
+                log.addDestination(cloud)
+            }
+        }
+
+        static func registerUser(_ email: String) {
+            cloud.analyticsUserName = email
+        }
+
+    }
+    ```
+
+1. Use middleware to log `Command`s and `Event`s according to severity.
+
+    ```swift
+    func process(event: Event, state: State) {
+        switch event {
+        case _ as SeriousErrorEvent:
+            log.error("event=\(event)")
+        case _ as MinorErrorEvent, _ as SharedPasswordError:
+            log.warning("event=\(event)")
+        case _ as NotableEvent:
+            log.info("event=\(event)")
+        case _ as AuthenticationAction, _ as DataAction, _ as ViewAction:
+            log.debug("event=\(event)")
+        default:
+            log.verbose("event=\(event)")
+        }
+    }
+    ```
 
 _People it helps:_
 
@@ -29,6 +76,9 @@ _People it helps:_
 * Ops
 
 _Alternatives we don't want to use:_
+
+* `print()` and `dump()`
+* [CocoaLumberjack](https://github.com/CocoaLumberjack/CocoaLumberjack)
 
 
 ## Marshal — JSON Parsing
