@@ -2,70 +2,77 @@
 
 **Motivation:** doing standard things in the same way each time makes it easy to ignore the mundane parts of them, to recognize quickly what's going on, and to later update every instance of its use throughout the app when we change how we want it done.
 
-## Document Status
+### Document Status
 
 This is currently just a brain dump of everything I can think of. Over time we'll actually discuss and solidify each item, and things will start to take shape.
 
-## Required
+# Required
 
 These things _must_ be done the same way across every project in order to pass a code review.
 
-### Table empty state
+## Table empty state
 
-Use & Conventions:
-Alternatives denied:
+_Tips & Conventions:_
+_Alternatives we don't want to use:_
 
-### Keyboard handling
+## Keyboard handling
 
-Use & Conventions:
-Alternatives denied:
+_Tips & Conventions:_
+_Alternatives we don't want to use:_
 
-### Table empty state
+## Table empty state
 
-Use & Conventions:
-Alternatives denied:
+_Tips & Conventions:_
+_Alternatives we don't want to use:_
 
-### Main.pattern — App root view controller
+# Recommended
 
-### UIColor.pattern — Naming & defining colors
+## Main.pattern — App root view controller
 
-### UIFont.pattern — Naming & defining fonts, handling accessibility sizing
+## UIColor.pattern — Naming & defining colors
 
-### NSProcessInfo.pattern — Configure database, network, and authentication safely
+## UIFont.pattern — Naming & defining fonts, handling accessibility sizing
 
-### Appearance.pattern — Initialize global appearance
+## NSProcessInfo.pattern — Configure database, network, and authentication safely
 
-### Storyboard.pattern — Segues and initialization from storyboards
+## Appearance.pattern — Initialize global appearance
 
-### Keys.pattern — Organize dictionary & JSON keys
+## Storyboard.pattern — Segues and initialization from storyboards
 
-### StoryboardStyle.pattern — Use style names for font and color choices in storyboards
+## Keys.pattern — Organize dictionary & JSON keys
 
-### Pluralize.pattern — Mix numbers and nouns and do it really well
+## StoryboardStyle.pattern — Use style names for font and color choices in storyboards
 
-### Settings.pattern — Handle typed UserDefaults storage + security audit
+## Pluralize.pattern — Mix numbers and nouns and do it really well
 
-### EnvironmentSwitcher.pattern — Change server environments
+## Settings.pattern — Handle typed UserDefaults storage + security audit
 
-### Debug.pattern — Access debug information for bug reporting
+## EnvironmentSwitcher.pattern — Change server environments
 
-### Optimistic.pattern — Update state as if the request worked, back out when error occurs
+## Debug.pattern — Access debug information for bug reporting
 
-### Version.pattern — That one thing that's like SemVer but isn't
+## Optimistic.pattern — Update state as if the request worked, back out when error occurs
 
-### TeamCredits.pattern — Give the team credit
+## Version.pattern — That one thing that's like SemVer but isn't
 
-### Screenshots.pattern — Automate screenshots in every language
+## TeamCredits.pattern — Give the team credit
 
-### Demo.pattern — Automate video for store demo
+## Screenshots.pattern — Automate screenshots in every language
 
-### Glacier.pattern — user data migration patterns, deprecation, etc.
+## Demo.pattern — Automate video for store demo
 
-### Error.pattern — Error handling and passing from low level to UI + translation
+## Glacier.pattern — user data migration patterns, deprecation, etc.
 
-### StateClear.pattern — Resetting state when task UI is dismissed
+## Error.pattern — Error handling and passing from low level to UI + translation
 
-### DemoUser.pattern — App Review account & faking user data
+## StateClear.pattern — Resetting state when task UI is dismissed
 
-### OutstandingRequestState.pattern — State patterns for handling API request status
+## DemoUser.pattern — App Review account & faking user data
 
+## OutstandingRequestState.pattern — State patterns for handling API request status
+
+
+# As Needed
+
+
+# Interesting
