@@ -30,9 +30,17 @@ _Alternatives we don't want to use:_
 
 # Recommended
 
-## Main.pattern — App root view controller
+## Use Compatible Versioning
+
+Use [Compatible Versioning](https://github.com/staltz/comver) (ComVer) instead of Semantic Versioning (SemVer).
 
 ## UIColor.pattern — Naming & defining colors
+
+Define all common colors used in your app inside a `UIColor` extension in a file called `UIColor+MyApp.swift`. Use color literals over hex initializers, etc., as it is much easier for developer brains to interpret. To add a color literal start typing `#color` in Xcode and autocomplete should help you out.
+
+![](/ColorExample.png)
+
+## Main.pattern — App root view controller
 
 ## UIFont.pattern — Naming & defining fonts, handling accessibility sizing
 
@@ -55,8 +63,6 @@ _Alternatives we don't want to use:_
 ## Debug.pattern — Access debug information for bug reporting
 
 ## Optimistic.pattern — Update state as if the request worked, back out when error occurs
-
-## Version.pattern — That one thing that's like SemVer but isn't
 
 ## TeamCredits.pattern — Give the team credit
 
