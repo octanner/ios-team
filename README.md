@@ -12,7 +12,7 @@ We believe that code reviews are an essential tool for keeping code quality high
 
 > We follow New York Times style guide for Objective-C code, and our [O.C. Tanner style guide for Swift code](./swift-style-guide.md). Any deviations are specified in our style guide amendments.
 
-We believe the best way to keep code readable among a team is to establish a us set coding style. Obviously such as style will involve compromises, but the outcome is worth the effort when everybody can read code written by others.
+We believe the best way to keep code readable among a team is to establish a us set coding style. Obviously such a style will involve compromises, but the outcome is worth the effort when everybody can read code written by others.
 
 ## Testing
 
@@ -22,7 +22,7 @@ We believe testing is an essential tool for developing reliable code and keeping
 
 ## Logging
 
-> We treat logs as data, and use a structured logging format for all logs.
+> We treat logs as data and use a structured logging format for all logs.
 
 We believe logging enhances our understanding of the runtime characteristics of our applications and provides an invaluable tool in finding bugs in our applications. We use it as a complement to the debugger when locating the source of errors.
 
@@ -36,4 +36,4 @@ We believe that each of us has room to grow, and that taking time to learn is es
 
 > We participate in the iOS community by both learning and giving back to it.
 
-We believe that in being a strong part of our local community we help lift all of us in our desire to be the best programmers we can be.
+We believe that in being a strong part of our local community, we help lift all of us in our desire to be the best programmers we can be.
