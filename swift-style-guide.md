@@ -6,6 +6,7 @@ This style guide outlines the coding conventions of the iOS team at O.C. Tanner.
 
 This guide is based on the following sources:
 
+* [Swift API Design Guidelines](https://swift.org/documentation/api-design-guidelines/)
 * [NYTimes Objective-C Style Guide](https://github.com/NYTimes/objective-c-style-guide)
 * [Netguru's Swift Style Guide](https://github.com/netguru/swift-style-guide)
 * [Sport Ngin Style Guide](http://sportngin.github.io/styleguide/swift.html)
@@ -25,12 +26,14 @@ This guide is based on the following sources:
 * [Enumerated Types](#enumerated-types)
 * [Implicit Getters](#implicit-getters)
 * [Private Properties](#private-properties)
+* [Collection Syntactic Sugar](#collection-syntactic-sugar)
 * [Typed Collection Initialization](#typed-collection-initialization)
 * [Variables](#variables)
   * [Colon Placement](#colon-placement)
   * [Native Over Bridged](#native-over-bridged)
   * [Mutability](#mutability-let-over-var)
 * [Optionals](#optionals)
+  * [Implicitly Unwrapped Optionals](#implicitly-unwrapped-optionals)
 * [Closures](#closures)
 * [Conditionals](#conditionals)
   * [Ternary Operator](#ternary-operator)
@@ -44,13 +47,9 @@ This guide is based on the following sources:
 
 There should be one blank line between methods to aid in visual clarity and organization. There should be two blank lines between classes or extensions within the same file. End files with an empty line.
 
-Use `// MARK: -`s to categorize methods into functional groupings and protocol implementations. Place two blank lines above the mark unless it is the first statement in the body. Place one blank line after the mark.
+Use `// MARK: -` to categorize methods into functional groupings and protocol implementations. Place two blank lines above the mark unless it is the first statement in the body. Place one blank line after the mark. In smaller files (say less that 100ish LOC), the code should be easy enough to follow that `// MARK` is unecessary.
 
-Whitespace within methods should be used to separate functionality (though often this can indicate an opportunity to split the method into several, smaller methods).
-
-Place private methods inside a private extension, below the main definition.
-
-**For example:**
+**For example:** (assuming the file is larger than 100 LOC)
 
 ```swift
 public class DelayOperation: Operation {
@@ -87,18 +86,12 @@ public class DelayOperation: Operation {
         /*  */
     }
 
-}
+    // ... more functions
 
-
-private extension DelayOperation {
-
-    // MARK: Private methods
-
-    private func verify() {
-        /*  */
-    }
 }
 ```
+
+Whitespace within methods should be used to separate functionality (though often this can indicate an opportunity to split the method into several, smaller methods). Use comments where appropriate, but realize that comments (like the aforementioned white space) can also indicate a further opportunity to decompose your method, or use more clear naming. Also, if your file gets large enough to merit several `// MARK`, this might be a yet another sign that you need to consider some decomposition, or that you are not following the [Single Responsibility Principle](https://en.wikipedia.org/wiki/Single_responsibility_principle).
 
 ### init and deinit
 
@@ -106,7 +99,7 @@ private extension DelayOperation {
 
 ### Remove Unused Code
 
-Don't commit code that will never execute; just delete it. You probably won't ever want it back, and if you do, you'll likely want to rewrite it anyway. And you can always retrieve it from an earlier commit if you have to. This applies to:
+Don't commit code that will never execute: just delete it. You probably won't ever want it back, and if you do, you'll likely want to rewrite it anyway. And you can always retrieve it from an earlier commit if you have to. This applies to:
 
 * Methods that are never called
 * Commented-out code
@@ -186,13 +179,13 @@ let settingsButton: UIButton
 let setBut: UIButton
 ```
 
-Static constants should be camel-case with all words capitalized to distinguish them from static shared instances. When referencing the constant, it will usually require being prefixed by the related class name.
+Properties, `case` names, local variables, and `static` constants should be camel-case with the the first letter lowercase. When referencing the constant, it will usually require being prefixed by the related class name.
 
 **For example:**
 
 ```swift
 class ArticleViewController {
-    static let NavigationFadeAnimationDuration = 0.3
+    static let navigationFadeAnimationDuration = 0.3
 }
 ```
 
@@ -203,8 +196,6 @@ class ArticleViewController {
     static let fadetime = 1.7
 }
 ```
-
-Properties and local variables should be camel-case with the leading word being lowercase.
 
 ### Image Naming
 
@@ -219,15 +210,15 @@ Images that are used for a similar purpose should be grouped in respective group
 
 ## Constants
 
-Constants are preferred over in-line string literals or numbers, as they allow for easy reproduction of commonly used variables and can be quickly changed without the need for find and replace. Constants should be declared as `static private let` values on the type that uses them.
+Constants are preferred over in-line string literals or numbers, as they allow for easy reproduction of commonly used variables and can be quickly changed without the need for find and replace. Constants should be declared as `private static let` if used in multiple functions, otherewise a simple local `let` inside the function will suffice.
 
 **For example:**
 
 ```swift
 class User {
 
-    static private let userKey = "user"
-    static private let nameKey = "name"
+    private static let userKey = "user"
+    private static let nameKey = "name"
 
 }
 ```
@@ -257,6 +248,19 @@ class Thermometer {
 
 Additionally, true singleton classes should declare all initializers as `private`.
 
+It is better to prefer shared instances over true singletons. This allows for dependency injection and more testability.
+
+When a class uses a shared instance internally, always declare a property for it like this:
+
+```swift
+class MyViewController: UIViewController {
+	var manager = SomeManager.sharedManager
+}
+```
+
+Then, _always_ use the declared property, and never `SomeManager.sharedManager` directly. This allows you to replace `manager` with a mock.
+
+
 ## Enumerated Types
 
 When using `enum`s, reserve using raw types for enums whose raw values are used in storage or other I/O. All other enums should be declared without a raw value.
@@ -265,14 +269,23 @@ When using `enum`s, reserve using raw types for enums whose raw values are used 
 
 ```swift
 enum TemperatureUnit: String {
-    case Kelvin = "K"
-    case Celsius = "C"
-    case Farenheit = "F"
+    case kelvin = "K"
+    case celsius = "C"
+    case farenheit = "F"
 }
 
 enum FeedCellType {
-    case StoryCell
-    case AdCell
+    case storyCell
+    case adCell
+}
+```
+
+Where possible while using `String` based enums, prefer naming the case the same as the `rawValue`. This way no explicit definition of the raw value is neccessary.
+
+```swift
+enum Segue: String {
+    case pushDetailViewController // no = "pushDetailViewController"
+    case presentNewItemViewController
 }
 ```
 
@@ -312,9 +325,25 @@ class PatientVitals {
 }
 ```
 
-## Typed Collection Initialization
+## Collections
 
-Typed collections should be initialized with literal values where possible. When building collection contents dynamically, initialize them with the type declaration on the right-hand side of the expression. Property declarations providing an initial value should follow these conventions.
+We use the syntactic sugar provided by Swift when working with `Array` and `Dictionary`.
+
+```swift
+let numbers: [Int]
+let json: [String: AnyObject]
+```
+
+**Not:**:
+
+```swift
+let numbers: Array<Int>
+let json: Dictionary<String, AnyObject>
+```
+
+If you find yourself having too many nested arrays or dictionaries, it's time for some `typealias`.
+
+Collections should be initialized with literal values where possible. When building collection contents dynamically, initialize them with the type declaration on the right-hand side of the expression. Property declarations providing an initial value should follow these conventions.
 
 **For example:**
 
@@ -327,7 +356,7 @@ or:
 
 ```swift
 var developers = [String]()
-var developersByTeam = [String:String]()
+var developersByTeam = [String: String]()
 ```
 
 **Not:**
@@ -337,16 +366,9 @@ var names = [String]()
 names = ["Brian", "Matt", "Chris", "Alex", "Steve", "Paul"]
 ```
 
-and not:
-
-```swift
-var developers: Array<String> = Array()
-var developersByTeam: Dictionary<String:String> = Dictionary()
-```
-
 ## Variables
 
-Variables should be named descriptively, with the variable’s name clearly communicating what the variable _is_ and pertinent information a programmer needs to use that value properly.
+Variables names should clearly communicate what the variable _is_ and pertinent information a programmer needs to use that value properly.
 
 Use implicit typing. This creates a greater need for thoughtful variable names which lead to reasonable assumptions about their types.
 
@@ -357,7 +379,7 @@ Use implicit typing. This creates a greater need for thoughtful variable names w
 * `titleAttributedString`: A title, already formatted for display. _`AttributedString` hints that this value is not just a vanilla title, and adding it could be a reasonable choice depending on context._
 * `now`: _No further clarification is needed._
 * `lastModifiedDate`: Simply `lastModified` can be ambiguous; depending on context, one could reasonably assume it is one of a few different types.
-* `URL` vs. `URLString`: In situations when a value can reasonably be represented by different classes, it is often useful to disambiguate in the variable’s name.
+* `url` vs. `urlString`: In situations when a value can reasonably be represented by different classes, it is often useful to disambiguate in the variable’s name.
 * `releaseDateString`: Another example where a value could be represented by another class, and the name can help disambiguate.
 
 Single letter variable names should be avoided except as simple counter variables in loops.
@@ -366,7 +388,7 @@ Single letter variable names should be avoided except as simple counter variable
 
 Colons indicating an explicit type should be “attached to” the variable name.
 
-**For example,**
+**For example:**
 ```swift
 let text: String
 ```
@@ -383,9 +405,8 @@ let text :String
 
 Colons used in dictionaries should follow a similar pattern, and be placed next to the keys of the dictionary.
 
-**For example,**
+**For example:**
 ```swift
-let chemistry = "Chemistry"
 let assignments = ["History": "Essay V", chemistry: "Experiment #3"]
 ```
 
@@ -393,7 +414,7 @@ let assignments = ["History": "Essay V", chemistry: "Experiment #3"]
 ```swift
 class Homework {
 
-    var completedAssignments = [String:String]
+    var completedAssignments = [String: String]
 
     func reset() {
         completedAssignments = [:]
@@ -404,13 +425,11 @@ class Homework {
 
 **not**
 ```swift
-let chemistry = "Chemistry"
 let assignments = ["History" : "Essay V", chemistry : "Experiment #3"]
 ```
 
 **and not:**
 ```swift
-let chemistry = "Chemistry"
 let assignments = ["History":"Essay V", chemistry:"Experiment #3"]
 ```
 
@@ -463,7 +482,29 @@ if let name = name, age = age where age >= 13 {
 }
 ```
 
-However, implicitly unwrapped optionals can sometimes be useful. They may be used in unit tests, where system under test should never be `nil` and there's no point executing the application if it is. Examples include `@IBOutlet`s or `NSManagedObjectContext`s set on view controllers before their use.
+For particularly long chains, consider putting each item on a new line:
+
+```swift
+if let name = name,
+       age = age,
+       email = email,
+       address = address {
+    /* ... */
+}
+```
+
+In cases where you care about identifying the point of failure in the chain, use multiple `guard let` statements.
+
+```swift
+guard let name = name else { /** print, throw error, fatalError, etc. */ }
+guard let age = age else { /** print, throw error, fatalError, etc. */ }
+guard let email = email else { /** print, throw error, fatalError, etc. */ }
+guard let address = address else { /** print, throw error, fatalError, etc. */ }
+```
+
+### Implicitly Unwrapped Optionals
+
+Implicitly unwrapped optionals can sometimes be useful. They may be used in unit tests, where system under test should never be `nil` and there's no point executing the application if it is. Examples include `@IBOutlet`s or `NSManagedObjectContext`s set on view controllers before their use.
 
 ```swift
 var context: NSManagedObjectContext!
@@ -473,11 +514,31 @@ override func viewDidLoad() {
 }
 ```
 
+**However**, you must still exercise extreme caution when working with implicitly unwrapped optionals. Consider the following code:
+
+```swift
+class MyViewController: UIViewController {
+    
+    @IBOutlet var titleLabel: UILabel!
+    
+    var name: String? {
+        didSet {
+            titleLabel.text = name
+        }
+    }
+    
+}
+```
+
+If a caller sets `name` _before_ the view loads this code will crash.
+
+In practice, make sure that any configuration code that can be called before the view loads treats the unwrapped optionals as optionals.
+
 ## Closures
 
 Remove all unneeded elements when using closures, and use trailing closure syntax whenever possible.
 
-**For example,**
+**For example:**
 ```swift
 dispatch_async(dispatch_get_main_queue()) {
     /*  */
@@ -493,7 +554,7 @@ dispatch_async(dispatch_get_main_queue(), { () -> Void in
 
 However, when a method signature includes multiple closures, prefix each to keep it clear what each closure is for.
 
-**For example,**
+**For example:**
 ```swift
 authenticate(userId, password: password, success: {
     /*  */
@@ -513,7 +574,7 @@ authenticate(username, password: password, success: {
 
 Because this is much more awkward than trailing closure syntax, create functions which are friendly to trailing closure syntax.
 
-**For example,**
+**For example:**
 ```swift
 func authenticate(username: String, password: password, completion:(NSError) -> Void) {
   /*  */
@@ -571,6 +632,8 @@ result = a > b ? x : y
 result = a > b ? x = c > d ? c : d : y
 ```
 
+A good rule of thumb is if you are having to use parentheses to keep things "readable", a traditional `if-else` is probably more appropriate.
+
 ### Nil Coalescing Operator
 
 Use the Nil Coalescing Operator, `??`, instead of using the ternary operator to check for `nil` and provide a default value when assigning values to non-optional variables.
@@ -615,11 +678,21 @@ On the other hand, dynamic code's control flow is resolved at run-time, which me
 
 ## Extensions
 
-> TODO: Describe how and when to use extensions, and how to document them so their separate intents are obvious.
+Whenever possible where you have an object that conforms to a protocol, put the corresponding members/methods in an extension that declares conformance.
+
+```swift
+extension MyViewController: UITableViewDelegate {
+    // ... Delegate method implementations
+}
+```
+
+When using a `private extension` for separating out `private` methods, be sure to still explicitly label each method as `private`; in long extensions it becomes difficult to infer the visibility modifier.
 
 ## Error Handling
 
-> TODO: Discuss `try` and `catch` here, and give guidance on when to use those versus other approaches.
+Use Swift's native error handling for any synchronous error handling.
+
+For async error handling, prefer passing back a `Result` object.
 
 # Other Swift Style Guides
 
