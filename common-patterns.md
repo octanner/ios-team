@@ -34,9 +34,13 @@ _Alternatives we don't want to use:_
 
 Use [Compatible Versioning](https://github.com/staltz/comver) (ComVer) instead of Semantic Versioning (SemVer).
 
-## Main.pattern — App root view controller
-
 ## UIColor.pattern — Naming & defining colors
+
+Define all common colors used in your app inside a `UIColor` extension in a file called `UIColor+MyApp.swift`. Use color literals over hex initializers, etc., as it is much easier for developer brains to interpret. To add a color literal start typing `#color` in Xcode and autocomplete should help you out.
+
+![](/ColorExample.png)
+
+## Main.pattern — App root view controller
 
 ## UIFont.pattern — Naming & defining fonts, handling accessibility sizing
 
