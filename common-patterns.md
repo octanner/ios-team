@@ -30,6 +30,10 @@ _Alternatives we don't want to use:_
 
 # Recommended
 
+## Use Compatible Versioning
+
+Use [Compatible Versioning](https://github.com/staltz/comver) (ComVer) instead of Semantic Versioning (SemVer).
+
 ## Main.pattern — App root view controller
 
 ## UIColor.pattern — Naming & defining colors
@@ -55,8 +59,6 @@ _Alternatives we don't want to use:_
 ## Debug.pattern — Access debug information for bug reporting
 
 ## Optimistic.pattern — Update state as if the request worked, back out when error occurs
-
-## Version.pattern — That one thing that's like SemVer but isn't
 
 ## TeamCredits.pattern — Give the team credit
 
