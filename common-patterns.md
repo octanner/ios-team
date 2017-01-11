@@ -10,6 +10,37 @@ This is currently just a brain dump of everything I can think of. Over time we'l
 
 These things _must_ be done the same way across every project in order to pass a code review.
 
+## Extract Xcode Build Phases into Separate Scripts
+
+Extract all Build Phase logic out of the Xcode text box for that phase and into a separate script file that is simply invoked from the build phase. We've selected most of the advice from Giovanni Lodi's article, [Better Xcode Run Script Build Phases](http://www.mokacoding.com/blog/better-build-phase-scripts).
+
+Make the scripts smart enough to check for the tools they require, and to report errors when they fail. Add `set -x` to ensure the scripts echo all the commands they run.
+
+Report errors:
+
+```sh
+echo "error: Your error message"
+echo "warning: Your warning message"
+```
+
+Check for tools:
+
+```sh
+if ! which <your tool> > /dev/null; then
+  echo "error: <your tool> is missing"
+  exit 1
+fi
+```
+
+_Tips & Conventions:_
+
+* Place scripts in the `<appName>/scripts/` directory of the repo.
+* Name the Build Phase to describe what the script will do.
+
+_Alternatives we don't want to use:_
+
+* Script contents coded into the Xcode project file
+
 ## Table empty state
 
 _Tips & Conventions:_
