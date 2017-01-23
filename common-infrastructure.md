@@ -91,12 +91,12 @@ It's fast, type-safe, Swift-y, and great. It even lets us pull in `Date`, `URL`,
 
 _Tips & Conventions:_
 
-1. Use the `<|` operator as much as possible for readability.
+1. Use the `value(for:)` function rather than the `<|` operator as much as possible for readability.
 
     ```swift
     init(object: MarshaledObject) throws {
-        nominator = try object <| "nominator"
-        connected = try object <| Keys.connected
+        nominator = try object.value(for: "nominator")
+        connected = try object.value(for: Keys.connected)
     }
     ```
 
