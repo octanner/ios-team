@@ -66,6 +66,45 @@ In addition to defining your app's basic colors, set up aliases for common color
 
 ## Optimistic.pattern — Update state as if the request worked, back out when error occurs
 
+Networking should feel instant; whenever possible, abstract the fact you are communicating with a server away from the user by assuming that a network response will succeed. To do this, write up a `Command` as follows:
+
+1. Store the current relevant state temporarily in a local variable that will be captured inside the callback's closure
+1. Do your networking call and in the closure handle errors. In the case of errors launch an event that reverts back to the saved state and display an error message as appropriate to the user.
+1. Immediately following the async networking call's code, fire an event or command that updates the core's state to what the state will be if the networking call succeeds.
+
+Here is a real world example from Welbe that accomplishes this is a slightly different manner:
+
+```swift
+struct LogWeight: Command {
+
+    private var networkAccess: WeightLossNetworkAccess = WeightLossNetworkAPIAccess()
+
+    var weight: Double
+
+    init(weight: Double) {
+        self.weight = weight
+    }
+
+    func execute(state: State, core: Core<State>) {
+        guard let user = state.user else {
+            Logger.warning("Tried logging weight without user")
+            return
+        }
+
+        networkAccess.logWeight(user.id, weight: weight, completion: { _ in
+            core.fire(command: GetWeightRecords())
+        })
+
+        core.fire(command: OptimisticallyAddWeightLog(weight: weight))
+    }
+
+}
+```
+
+In this case, the optimistic logic takes place in the command, `OptimisticallyAddWeightLog`. This helps keep our commands simple and short as the logic is a little complex due to the way the data is structured. Errors are explicitly ignored inside the networking callback, but this is because we will refresh with the real data regardless as we fire the `GetWeightRecords` command in the completion.
+
+You can also read a little bit more [here](https://medium.com/swift-fox/networking-reactor-bfa0ba4d23b3#.txf5e9tfs).
+
 ## TeamCredits.pattern — Give the team credit
 
 ## Screenshots.pattern — Automate screenshots in every language
