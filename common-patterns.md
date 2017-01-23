@@ -40,6 +40,8 @@ Define all common colors used in your app inside a `UIColor` extension in a file
 
 ![](/ColorExample.png)
 
+In addition to defining your app's basic colors, set up aliases for common colors such as `primaryTextColor`, `cellBackgroundColor`, etc. These will make general styling more flexible and easy to change at a designers whim.
+
 ## Main.pattern — App root view controller
 
 ## UIFont.pattern — Naming & defining fonts, handling accessibility sizing
