@@ -195,7 +195,54 @@ _Alternatives we don't want to use:_
 
 ## ios-network-stack — Internal HTTP API calls
 
-## Kingfisher — Image loading & caching
+## Kingfisher — Image loading & caching
+
+[Kingfisher](https://github.com/onevcat/Kingfisher): A lightweight, pure-Swift library for downloading and caching images from the web.
+
+_It's awesome because:_
+
+It's so forgettable, because it's fast and just works. When you need more power, it's got you covered.
+
+_Tips & Conventions:_
+
+1. Use it when setting images on your table or collection view cells.
+
+    ```swift
+    eventImageView.kf.setImage(with: imageURL)
+    ```
+
+1. Use it to prefetch images that you know will be coming up soon.
+
+    ```swift
+    // MARK: - Tableview Prefetching
+    extension ChallengePhotoFeedViewController: UITableViewDataSourcePrefetching {
+        func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+            let indices = indexPaths.map { $0.row }
+            let entries = indices.flatMap { photoEntries[$0] }
+            ImagePrefetcher(urls: entries.flatMap { $0.photoURL }).start()
+        }
+    }
+    ```
+
+1. Use advanced features to do stuff like create template images.
+
+    ```swift
+    iconImageView.kf.setImage(with: interest.iconURL, placeholder: nil, options: nil) { image, error, cacheType, imageURL in
+        guard let image = image else { return }
+        self.iconImageView.image = image.withRenderingMode(.alwaysTemplate)
+    }
+    ```
+
+_People it helps:_
+
+* Users (because images are fast with caching)
+* iOS devs
+* API devs (because they don't need to make special APIs to help us cache well)
+
+_Alternatives we don't want to use:_
+
+* Plain `URLRequest()` and friends
+* [AlamofireImage](https://github.com/Alamofire/AlamofireImage)
 
 ## Whisper — Status message UI
 
