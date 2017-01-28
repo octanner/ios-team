@@ -8,7 +8,41 @@ This is currently just a brain dump of everything I can think of. Over time we'l
 
 ## Table of Contents
 
+* [Required](#required)
+    * [Extract Xcode Build Phases into Separate Scripts](#extract-xcode-build-phases-into-separate-scripts)
+    * [Empty states with UITableView](#empty-states-with-uitableview)
+    * [Keyboard handling](#keyboard-handling)
+* [Recommended](#recommended)
+    * [Compatible Versioning: major.minor only](#compatible-versioning-majorminor-only)
+    * [Naming and defining colors](#naming-and-defining-colors)
+    * [App root view controller](#app-root-view-controller)
+    * [Naming and defining fonts](#naming-and-defining-fonts)
+    * [Handle font accessibility sizing](#handle-font-accessibility-sizing)
+    * [Safely test network and configurations](#safely-test-network-and-configurations)
+    * [Manage global appearance](#manage-global-appearance)
+    * [Segues and view controller initialization from storyboards](#segues-and-view-controller-initialization-from-storyboards)
+    * [Organize dictionary and JSON key strings](#organize-dictionary-and-json-key-strings)
+    * [Use semantic names for fonts and colors in storyboards](#use-semantic-names-for-fonts-and-colors-in-storyboards)
+    * [Pluralize: Mix numbers and nouns and do it really well](#pluralizemix-numbers-and-nouns-and-do-it-really-well)
+    * [Typed UserDefaults storage](#typed-userdefaults-storage)
+    * [Switch environments and API servers](#switch-environments-and-api-servers)
+    * [Access debug information for bug reporting](#access-debug-information-for-bug-reporting)
+    * [Optimistically update state and revert on error](#optimistically-update-state-and-revert-on-error)
+    * [Give the team credit somewhere](#give-the-team-credit-somewhere)
+    * [Automate screenshots in every language](#automate-screenshots-in-every-language)
+    * [Automate App Store demo video](#automate-app-store-demo-video)
+    * [User data migration and deprecation patterns](#user-data-migration-and-deprecation-patterns)
+    * [Error Handling](#error-handling)
+        * [Logging errors effectively](#logging-errors-effectively)
+        * [Displaying errors to the user](#displaying-errors-to-the-user)
+        * [Translating error messages](#translating-error-messages)
+    * [Resetting state when a view is dismissed](#resetting-state-when-a-view-is-dismissed)
+    * [Demo user data for App Review and screenshots](#demo-user-data-for-app-review-and-screenshots)
+    * [State patterns for handling API request status](#state-patterns-for-handling-api-request-status)
+* [As Needed](#as-needed)
+* [Interesting](#interesting)
 
+*TOC generated with [DocToc](http://doctoc.herokuapp.com/)*
 
 # Required
 
