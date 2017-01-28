@@ -53,32 +53,36 @@ Use [secondary views](https://blog.curtisherbert.com/secondary-views/) in storyb
 
 _It's awesome because_
 
-You can build the empty state view out in storyboards separately from your viewController to keep your ViewController looking clean. It's also really easy to add and remove the view from the tableview when needed. 
+You can build the empty state view out in storyboards separately from your viewController to keep your ViewController looking clean. It's also really easy to add and remove the view from the tableview when needed.
 
 _How it works_
 
 1. In storyboards, drop a `UIView` into the `ToolBar` or your ViewController. The same as if you were adding an NSObject to the ViewController to create a UITableViewDataSource
 
 1. Create your view how you'd like it to appear, adding views and labels and even buttons.
-  ![](https://github.com/octanner/ios-team/blob/derikflanary-tableview-emptyState/emptystate.png)
-  
+
+    <img src="images/emptystate.png" width="412px" alt="Xcode storyboard showing secondary views.">
+
 1. Then create an outlet to your secondary view in your ViewController.
 
-  ```swift
-  @IBOutlet var emptyStateView: UIView!
-  ```
-  
+    ```swift
+    @IBOutlet var emptyStateView: UIView!
+    ```
+
 1. To show the empty state view just add that view as the `backgroundView` of the tableView when the tableView is empty.
-  ```swift
-  tableView.backgroundView = emptyStateView
-  ```
+
+    ```swift
+    tableView.backgroundView = emptyStateView
+    ```
+
 1. To remove the view, just set the `backgroundView` to nil
-  ```
-  tableView.backgroudView = nil
-  ```
+
+    ```swift
+    tableView.backgroudView = nil
+    ```
 
 _Tips & Conventions:_
- 
+
  * Make sure the outlet is `strong` instead of `weak` because we're possibly removing these views after we show them. If we remove a weak view from the main screen then nothing is left holding onto the view, so the IBOutlet would turn nil and we'd never be able to re-show it
 
 
@@ -87,16 +91,6 @@ _Alternatives we don't want to use:_
 * Hiding the tableView and showing a different view on top or underneath.
 
 ## Keyboard handling
-
-_It's awesome because:_
-
-_How it works:_
-
-_Tips & Conventions:_
-
-_Alternatives we don't want to use:_
-
-## Table empty state
 
 _It's awesome because:_
 
@@ -130,7 +124,7 @@ _How it works:_
 
 Define all common colors used in your app inside a `UIColor` extension in a file called `UIColor+MyApp.swift`. Use color literals over hex initializers, etc., as it is much easier for developer brains to interpret. To add a color literal start typing `#color` in Xcode and autocomplete should help you out.
 
-![](/ColorExample.png)
+<img src="images/ColorExample.png" width="491px" alt="Code for a UIColor extension using color literals">
 
 _Tips & Conventions:_
 
@@ -153,7 +147,7 @@ _How it works:_
 
 1. Set the desired environment variables in your scheme's Run configuration. You find them under the Arguments tab.
 
-    ![](/images/process-info-env-vars.png)
+    <img src="images/process-info-env-vars.png" width="867px" alt="Xcode scheme Run phase arguments tab">
 
 1. Hide environment variable access behind a `ProcessInfo` extension. Combine this with the `Keys.pattern` below. Create calculated variables for common access patterns.
 

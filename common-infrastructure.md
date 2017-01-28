@@ -22,7 +22,7 @@ _It's awesome because:_
 
 You can see logs from real users in near real-time. Searching and grouping are also great. The SDK is really lightweight and easy to use.
 
-<img src="swiftybeaver-console.png" width="600" alt="SwiftyBeaver Mac console app">
+<img src="images/swiftybeaver-console.png" width="600" alt="SwiftyBeaver Mac console app">
 
 _Tips & Conventions:_
 
@@ -157,7 +157,7 @@ _Tips & Conventions:_
 
 1. Use separate files for each `State`, `Command`, or `Event` object. Place these into file system folders and Xcode group folders named `States`, `Commands`, `Events`.
 
-    <img src="reactor-xcode.png" width="197px" alt="Xcode Project navigator with groups for States, Commands, Events.">
+    <img src="images/reactor-xcode.png" width="197px" alt="Xcode Project navigator with groups for States, Commands, Events.">
 
 1. Make all your `State` and `Event` objects implement `JSONMarshaling`. This is great for emailing support details when errors occur, and improving your own debugging.
 
