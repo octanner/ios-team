@@ -143,7 +143,77 @@ _Alternatives we don't want to use:_
 
 ## UIFont.pattern — Naming & defining fonts, handling accessibility sizing
 
-## NSProcessInfo.pattern — Configure database, network, and authentication safely
+## ProcessInfo.pattern — Configure database, network, and authentication safely
+
+_It's awesome because:_
+
+You can safely configure any part of your app, because these values can't ever be set on user devices.
+
+_How it works:_
+
+1. Set the desired environment variables in your scheme's Run configuration. You find them under the Arguments tab.
+
+    ![](/images/process-info-env-vars.png)
+
+1. Hide environment variable access behind a `ProcessInfo` extension. Combine this with the `Keys.pattern` below. Create calculated variables for common access patterns.
+
+    ```swift
+    extension ProcessInfo {
+
+        static var hideUI: Bool {
+            return ProcessInfo.processInfo.environment["hideUI"] == "YES"
+        }
+
+        static var network: String? {
+            return ProcessInfo.processInfo.environment[Keys.network]
+        }
+
+        static var isTakingSnapshots: Bool {
+            return ProcessInfo.network == Keys.snapshots
+        }
+
+    }
+    ```
+
+1. _Judiciously_ use them to customize the app's behavior for testing scenarios.
+
+    ```swift
+    @UIApplicationMain class AppDelegate: UIResponder, UIApplicationDelegate {
+
+        func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+            if let network = ProcessInfo.network, token = ProcessInfo.token {
+                MyAPI().authenticate(with: token)
+            }
+            return true
+        }
+
+    }
+    ```
+
+1. Setup the values in your UI tests in `setUp` before you launch the app.
+
+    ```swift
+    override func setUp() {
+        super.setUp()
+        let app = XCUIApplication()
+        setupSnapshot(app)
+
+        app.launchEnvironment["network"] = "snapshots"
+        app.launchEnvironment["token"] = "0c8268b219aa28b31fde48e40c4aca8"
+        app.launch()
+    }
+    ```
+
+_Tips & Conventions:_
+
+* We much prefer environment variables over launch arguments. Launch arguments can be accessed via `UserDefaults`, which creates the (remote) possibility that this debug behavior may be triggered on user devices.
+* Because this behavior can't be triggered on user devices, we don't protect the places that use it with `#if DEBUG` unless they use some private API that can't ship to the App Store.
+
+_Alternatives we don't want to use:_
+
+* Launch arguments
+* Settings.app settings
+* In-App debug settings UI
 
 ## Appearance.pattern — Initialize global appearance
 
