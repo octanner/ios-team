@@ -106,7 +106,7 @@ _Alternatives we don't want to use:_
 
 # Recommended
 
-## Use Compatible Versioning: major.minor only
+## Compatible Versioning: major.minor only
 
 Use [Compatible Versioning](https://github.com/staltz/comver) (ComVer) instead of Semantic Versioning (SemVer), for both app marketing and library release version numbers.
 
@@ -129,7 +129,7 @@ _Alternatives we don't want to use:_
 
 * [SemVer](http://semver.org)
 
-## UIColor.pattern — Naming & defining colors
+## Naming and defining colors
 
 _It's awesome because:_
 
@@ -148,11 +148,13 @@ _Alternatives we don't want to use:_
 * `UIColor(hex: 0xabcdef)`
 * Color definitions all over the code.
 
-## Main.pattern — App root view controller
+## App root view controller
 
-## UIFont.pattern — Naming & defining fonts, handling accessibility sizing
+## Naming and defining fonts
 
-## ProcessInfo.pattern — Configure database, network, and authentication safely
+## Handle font accessibility sizing
+
+## Safely test network and configurations
 
 _It's awesome because:_
 
@@ -224,40 +226,47 @@ _Alternatives we don't want to use:_
 * Settings.app settings
 * In-App debug settings UI
 
-## Appearance.pattern — Initialize global appearance
+## Manage global appearance
 
-## Storyboard.pattern — Segues and initialization from storyboards
+## Segues and view controller initialization from storyboards
 
-## Keys.pattern — Organize dictionary & JSON keys
+## Organize dictionary and JSON key strings
 
-## StoryboardStyle.pattern — Use style names for font and color choices in storyboards
+## Use semantic names for fonts and colors in storyboards
 
-## Pluralize.pattern — Mix numbers and nouns and do it really well
+## Pluralize: Mix numbers and nouns and do it really well
 
-## Settings.pattern — Handle typed UserDefaults storage + security audit
+## Typed UserDefaults storage
 
-## EnvironmentSwitcher.pattern — Change server environments
+_TBD: mention listing stored items for security audit_
 
-## Debug.pattern — Access debug information for bug reporting
+## Switch environments and API servers
 
-## Optimistic.pattern — Update state as if the request worked, back out when error occurs
+## Access debug information for bug reporting
 
-## TeamCredits.pattern — Give the team credit
+## Optimistically update state and revert on error
 
-## Screenshots.pattern — Automate screenshots in every language
+## Give the team credit somewhere
 
-## Demo.pattern — Automate video for store demo
+## Automate screenshots in every language
 
-## Glacier.pattern — user data migration patterns, deprecation, etc.
+## Automate App Store demo video
 
-## Error.pattern — Error handling and passing from low level to UI + translation
+## User data migration and deprecation patterns
 
-## StateClear.pattern — Resetting state when task UI is dismissed
+## Error Handling
 
-## DemoUser.pattern — App Review account & faking user data
+### Logging errors effectively
 
-## OutstandingRequestState.pattern — State patterns for handling API request status
+### Displaying errors to the user
 
+### Translating error messages
+
+## Resetting state when a view is dismissed
+
+## Demo user data for App Review and screenshots
+
+## State patterns for handling API request status
 
 # As Needed
 
