@@ -6,6 +6,38 @@
 
 This is currently just a brain dump of everything I can think of. Over time we'll actually discuss and solidify each item, and things will start to take shape.
 
+## Table of Contents
+
+* [Required](#required)
+  * [Extract Xcode Build Phases into Separate Scripts](#extract-xcode-build-phases-into-separate-scripts)
+  * [Empty states with UITableView](#empty-states-with-uitableview)
+  * [Keyboard handling](#keyboard-handling)
+* [Recommended](#Recommended)
+  * [Use Compatible Versioning: major.minor only](#use-compatible-versioning-majorminor-only)
+  * [UIColor.pattern — Naming & defining colors](#uicolorpattern-naming--defining-colors)
+  * [Main.pattern — App root view controller](#mainpattern-app-root-view-controller)
+  * [UIFont.pattern — Naming & defining fonts, handling accessibility sizing](#uifontpattern-naming--defining-fonts-handling-accessibility-sizing)
+  * [ProcessInfo.pattern — Configure database, network, and authentication safely](#processinfopattern-configure-database-network-and-authentication-safely)
+  * [Appearance.pattern — Initialize global appearance](#appearancepattern-initialize-global-appearance)
+  * [Storyboard.pattern — Segues and initialization from storyboards](#storyboardpattern-segues-and-initialization-from-storyboards)
+  * [Keys.pattern — Organize dictionary & JSON keys](#keyspattern-organize-dictionary--json-keys)
+  * [StoryboardStyle.pattern — Use style names for font and color choices in storyboards](#storyboardstylepattern-use-style-names-for-font-and-color-choices-in-storyboards)
+  * [Pluralize.pattern — Mix numbers and nouns and do it really well](#pluralizepattern-mix-numbers-and-nouns-and-do-it-really-well)
+  * [Settings.pattern — Handle typed UserDefaults storage + security audit](#settingspattern-handle-typed-userdefaults-storage--security-audit)
+  * [EnvironmentSwitcher.pattern — Change server environments](#environmentswitcherpattern-change-server-environments)
+  * [Debug.pattern — Access debug information for bug reporting](#debugpattern-access-debug-information-for-bug-reporting)
+  * [Optimistic.pattern — Update state as if the request worked, back out when error occurs](#optimisticpattern-update-state-as-if-the-request-worked-back-out-when-error-occurs)
+  * [TeamCredits.pattern — Give the team credit](#teamcreditspattern-give-the-team-credit)
+  * [Screenshots.pattern — Automate screenshots in every language](#screenshotspattern-automate-screenshots-in-every-language)
+  * [Demo.pattern — Automate video for store demo](#demopattern-automate-video-for-store-demo)
+  * [Glacier.pattern — user data migration patterns, deprecation, etc.](#glacierpattern-user-data-migration-patterns-deprecation-etc)
+  * [Error.pattern — Error handling and passing from low level to UI + translation](#errorpattern-error-handling-and-passing-from-low-level-to-ui--translation)
+  * [StateClear.pattern — Resetting state when task UI is dismissed](#stateclearpattern-resetting-state-when-task-ui-is-dismissed)
+  * [DemoUser.pattern — App Review account & faking user data](#demouserpattern-app-review-account-& faking user data)
+  * [OutstandingRequestState.pattern — State patterns for handling API request status](#outstandingrequeststatepattern-state-patterns-for-handling-api-request-status)
+* [As Needed](#as-needed)
+* [Interesting](#interesting)
+
 # Required
 
 These things _must_ be done the same way across every project in order to pass a code review.
