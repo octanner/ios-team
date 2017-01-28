@@ -54,7 +54,7 @@ _How it works_
 1. In storyboards, drop a `UIView` into the `ToolBar` or your ViewController. The same as if you were adding an NSObject to the ViewController to create a UITableViewDataSource
 
 1. Create your view how you'd like it to appear, adding views and labels and even buttons.
-
+![](https://github.com/octanner/ios-team/blob/derikflanary-tableview-emptyState/emptystate.png)
 1. Then create an outlet to your secondary view in your ViewController.
 
 1. To show the empty state view just add that view as the `backgroundView` of the tableView when the tableView is empty.
