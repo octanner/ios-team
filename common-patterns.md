@@ -43,9 +43,42 @@ _Alternatives we don't want to use:_
 
 ## Table empty state
 
+Use [secondary views](https://blog.curtisherbert.com/secondary-views/) in storyboards to build out your empty state views.
+
+_It's awesome because_
+
+You can build the empty state view out in storyboards separately from your viewController to keep your ViewController looking clean. It's also really easy to add and remove the view from the tableview when needed. 
+
+_How it works_
+
+1. In storyboards, drop a `UIView` into the `ToolBar` or your ViewController. The same as if you were adding an NSObject to the ViewController to create a UITableViewDataSource
+
+1. Create your view how you'd like it to appear, adding views and labels and even buttons.
+  ![](https://github.com/octanner/ios-team/blob/derikflanary-tableview-emptyState/emptystate.png)
+  
+1. Then create an outlet to your secondary view in your ViewController.
+
+  ```swift
+  @IBOutlet var emptyStateView: UIView!
+  ```
+  
+1. To show the empty state view just add that view as the `backgroundView` of the tableView when the tableView is empty.
+  ```swift
+  tableView.backgroundView = emptyStateView
+  ```
+1. To remove the view, just set the `backgroundView` to nil
+  ```
+  tableView.backgroudView = nil
+  ```
+
 _Tips & Conventions:_
+ 
+ * Make sure the outlet is `strong` instead of `weak` because we're possibly removing these views after we show them. If we remove a weak view from the main screen then nothing is left holding onto the view, so the IBOutlet would turn nil and we'd never be able to re-show it
+
 
 _Alternatives we don't want to use:_
+
+* Hiding the tableView and showing a different view on top or underneath.
 
 ## Keyboard handling
 
