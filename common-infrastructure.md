@@ -1,12 +1,14 @@
 # Common iOS Infrastructure
 
-**Motivation:** standardizing things that provide no unique value to an application focuses our time on providing the unique value each application has, giving us a competitive edge in the market. Some choices are made not for convenience of the developers of the app themselves, but to reduce the pain or communication burden of others who care about our products.
+### Motivation
+
+Standardizing things that provide no unique value to an application focuses our time on providing the unique value each application has, giving us a competitive edge in the market. Some choices are made not for convenience of the developers of the app themselves, but to reduce the pain or communication burden of others who care about our products.
 
 Items listed here include tools, libraries, conventions, and processes.
 
 ### Document Status
 
-This is currently just a brain dump of everything I can think of. Over time we'll actually discuss and solidify each item, and things will start to take shape.
+This started as a brain dump of everything I could think of. The list of items is not curateg, not grouped properly, and not ordered well. We've started write ups on our most-used libraries.
 
 ## Table of Contents
 

@@ -1,10 +1,12 @@
 # Common iOS Patterns
 
-**Motivation:** doing standard things in the same way each time makes it easy to ignore the mundane parts of them, to recognize quickly what's going on, and to later update every instance of its use throughout the app when we change how we want it done.
+### Motivation
+
+Doing standard things in the same way each time makes it easy to ignore the mundane parts of them, to recognize quickly what's going on, and to later update every instance of its use throughout the app when we change how we want it done.
 
 ### Document Status
 
-This is currently just a brain dump of everything I can think of. Over time we'll actually discuss and solidify each item, and things will start to take shape.
+The list of items, grouping, and ordering of them is done. We're now working through to write up each item.
 
 ## Table of Contents
 
