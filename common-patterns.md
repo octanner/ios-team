@@ -58,10 +58,12 @@ _How it works_
   
 1. Then create an outlet to your secondary view in your ViewController.
 
-  ![](https://github.com/octanner/ios-team/blob/derikflanary-tableview-emptyState/Screen%20Shot%202017-01-27%20at%205.15.12%20PM.png)
+  ```swift
+  @IBOutlet var emptyStateView: UIView!
+  ```
   
 1. To show the empty state view just add that view as the `backgroundView` of the tableView when the tableView is empty.
-  ```Swift
+  ```swift
   tableView.backgroundView = emptyStateView
   ```
 1. To remove the view, just set the `backgroundView` to nil
