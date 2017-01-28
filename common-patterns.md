@@ -47,7 +47,7 @@ _Alternatives we don't want to use:_
 
 * Script contents coded into the Xcode project file
 
-## Table empty state
+## Empty states with UITableView
 
 Use [secondary views](https://blog.curtisherbert.com/secondary-views/) in storyboards to build out your empty state views.
 
@@ -102,17 +102,28 @@ _Alternatives we don't want to use:_
 
 # Recommended
 
-## Use Compatible Versioning
+## Use Compatible Versioning: major.minor only
 
-Use [Compatible Versioning](https://github.com/staltz/comver) (ComVer) instead of Semantic Versioning (SemVer).
+Use [Compatible Versioning](https://github.com/staltz/comver) (ComVer) instead of Semantic Versioning (SemVer), for both app marketing and library release version numbers.
 
 _It's awesome because:_
 
+It simplifies versioning down to, "Is this version backwards compatible or not?" and makes nicer looking marketing version numbers for users.
+
+It also takes the guesswork out of deciding on a marketing version.
+
 _How it works:_
+
+Increment the MAJOR version when you make backwards-incompatible updates of any kind MINOR version when you make 100% backwards-compatible updates
 
 _Tips & Conventions:_
 
+* Continue to add a build number to the marketing number for the app, making this number use 3 segments instead of 4.
+* Continue to tag each release of a library with `major.minor.0` to satisfy current Swift Package Manager behavior (Jan 2017) which requires full SemVer tags. This is 100% semantically equivalent to ComVer.
+
 _Alternatives we don't want to use:_
+
+* [SemVer](http://semver.org)
 
 ## UIColor.pattern — Naming & defining colors
 
