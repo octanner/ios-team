@@ -12,6 +12,12 @@ These things _must_ be done the same way across every project in order to pass a
 
 ## Extract Xcode Build Phases into Separate Scripts
 
+_It's awesome because:_
+
+Xcode project files store scripts as one long line, making diffing impossible, syntax highlighting is non-existant, and the change history is muddled with the project edits. This pattern brings all those back.
+
+_How it works:_
+
 Extract all Build Phase logic out of the Xcode text box for that phase and into a separate script file that is simply invoked from the build phase. We've selected most of the advice from Giovanni Lodi's article, [Better Xcode Run Script Build Phases](http://www.mokacoding.com/blog/better-build-phase-scripts).
 
 Make the scripts smart enough to check for the tools they require, and to report errors when they fail. Add `set -x` to ensure the scripts echo all the commands they run.
@@ -82,11 +88,19 @@ _Alternatives we don't want to use:_
 
 ## Keyboard handling
 
+_It's awesome because:_
+
+_How it works:_
+
 _Tips & Conventions:_
 
 _Alternatives we don't want to use:_
 
 ## Table empty state
+
+_It's awesome because:_
+
+_How it works:_
 
 _Tips & Conventions:_
 
@@ -98,11 +112,32 @@ _Alternatives we don't want to use:_
 
 Use [Compatible Versioning](https://github.com/staltz/comver) (ComVer) instead of Semantic Versioning (SemVer).
 
+_It's awesome because:_
+
+_How it works:_
+
+_Tips & Conventions:_
+
+_Alternatives we don't want to use:_
+
 ## UIColor.pattern — Naming & defining colors
+
+_It's awesome because:_
+
+You know exactly where to go to change any built-in color used by your app. This doesn't apply to dynamic colors used based on API values.
+
+_How it works:_
 
 Define all common colors used in your app inside a `UIColor` extension in a file called `UIColor+MyApp.swift`. Use color literals over hex initializers, etc., as it is much easier for developer brains to interpret. To add a color literal start typing `#color` in Xcode and autocomplete should help you out.
 
 ![](/ColorExample.png)
+
+_Tips & Conventions:_
+
+_Alternatives we don't want to use:_
+
+* `UIColor(hex: 0xabcdef)`
+* Color definitions all over the code.
 
 ## Main.pattern — App root view controller
 
