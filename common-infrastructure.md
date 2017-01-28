@@ -1,6 +1,6 @@
 # Common iOS Infrastructure
 
-Motivation: standardizing things that provide no unique value to an application focuses our time on providing the unique value each application has, giving us a competitive edge in the market. Some choices are made not for convenience of the developers of the app themselves, but to reduce the pain or communication burden of others who care about our products.
+**Motivation:** standardizing things that provide no unique value to an application focuses our time on providing the unique value each application has, giving us a competitive edge in the market. Some choices are made not for convenience of the developers of the app themselves, but to reduce the pain or communication burden of others who care about our products.
 
 Items listed here include tools, libraries, conventions, and processes.
 
@@ -8,6 +8,55 @@ Items listed here include tools, libraries, conventions, and processes.
 
 This is currently just a brain dump of everything I can think of. Over time we'll actually discuss and solidify each item, and things will start to take shape.
 
+## Table of Contents
+
+* [Required](#required)
+    * [SwiftyBeaver — Logging](#swiftybeaver-logging)
+    * [Marshal — JSON Parsing](#marshal--json-parsing)
+    * [Reactor — Manage app data flow](#reactor--manage-app-data-flow)
+    * [XCTest — Unit and UI Testing](#xctest-unit-and-ui-testing)
+    * [ios-network-stack — Internal HTTP API calls](#ios-network-stack-internal-http-api-calls)
+    * [Kingfisher — Image loading & caching](#kingfisher--image-loading--caching)
+    * [Whisper — Status message UI](#whisper-status-message-ui)
+    * [Carthage — Dependency management](#carthage-dependency-management)
+    * [version.rb — App version numbering](#versionrb-app-version-numbering)
+    * [Github Reviews — Code reviews](#github-reviews-code-reviews)
+    * [Jenkins — Continuous Integration](#jenkins-continuous-integration)
+    * [Fastlane — Automated build & deployment](#fastlane-automated-build--deployment)
+    * [Testflight — Beta testing & distribution](#testflight-beta-testing--distribution)
+    * [Fabric — Crash reporting and usage metrics](#fabric-crash-reporting-and-usage-metrics)
+    * [OneSky — Translation](#onesky-translation)
+    * [SimpleKeychain — Typed Keychain access](#simplekeychain-typed-keychain-access)
+    * [DeviceInfo — Standardized access to device properties](#deviceinfo-standardized-access-to-device-properties)
+    * [DVR — UI testing network mocking](#dvr-ui-testing-network-mocking)
+    * [Paw — API exploration, gathering mock data](#paw-api-exploration-gathering-mock-data)
+    * [HTMLLabel — Display basic HTML with links and "view more"](#htmllabel-display-basic-html-with-links-and-view-more)
+    * [LaunchKit — AppReviews in Slack](#launchkit-appreviews-in-slack)
+    * [Github -> Amazon SQS trigger — Start CI builds on commit](#github---amazon-sqs-trigger-start-ci-builds-on-commit)
+    * [Github — Code](#github-code)
+    * [ben/RateThisApp — Request app ratings](#benratethisapp-request-app-ratings)
+    * [ben/ShareThisApp — Share the app](#bensharethisapp-share-the-app)
+    * [ben/EmailSupport — Send a support request email](#benemailsupport-send-a-support-request-email)
+* [To Be Created, and Required](#to-be-created-and-required)
+    * [Credits — Team credits & open source licenses](#credits-team-credits--open-source-licenses)
+    * [Unnamed — Internal push notification server](#unnamed-internal-push-notification-server)
+    * [ReachabilityReactor — Monitor network reachability with State](#reachabilityreactor-monitor-network-reachability-with-state)
+    * [Dateful — Convenient date handling](#dateful-convenient-date-handling)
+    * [Migrations — Perform actions when installed app version changes](#migrations-perform-actions-when-installed-app-version-changes)
+    * [.gitignore — Common configuration for ignoring files on our projects](#gitignore-common-configuration-for-ignoring-files-on-our-projects)
+    * [ClearTest — Xcode plugin to make test names into readable comments](#cleartest-xcode-plugin-to-make-test-names-into-readable-comments)
+* [Recommended](#recommended)
+    * [Intercom — Customer support](#intercom-customer-support)
+    * [CustomTabBar — Tab bar with highlight](#customtabbar-tab-bar-with-highlight)
+    * [LocationReactor — Monitor location changes with State](#locationreactor-monitor-location-changes-with-state)
+* [As Needed](#as-needed)
+* [Interesting](#interesting)
+    * [SupportKit — messaging SDK for user feedback](#supportkit-messaging-sdk-for-user-feedback)
+    * [Chisel — LLDB commands](#chisel-lldb-commands)
+    * [Realm — local and server data syncing](#realm-local-and-server-data-syncing)
+    * [AlamoFire — common networking](#alamofire-common-networking)
+    * [SwiftLint — Coding style enforcement](#swiftlint-coding-style-enforcement)
+* [Sources of Inspiration](#sources-of-inspiration)
 
 # Required
 
