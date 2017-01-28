@@ -9,44 +9,93 @@ This is currently just a brain dump of everything I can think of. Over time we'l
 ## Table of Contents
 
 * [Required](#required)
+    * [Compatible Versioning: major.minor only](#compatible-versioning-majorminor-only)
+    * [App root view controller](#app-root-view-controller)
+    * [Naming and defining colors](#naming-and-defining-colors)
+    * [Fonts](#fonts)
+        * [Naming and defining fonts](#naming-and-defining-fonts)
+        * [Handle font accessibility sizing](#handle-font-accessibility-sizing)
     * [Extract Xcode Build Phases into Separate Scripts](#extract-xcode-build-phases-into-separate-scripts)
     * [Empty states with UITableView](#empty-states-with-uitableview)
     * [Keyboard handling](#keyboard-handling)
-* [Recommended](#recommended)
-    * [Compatible Versioning: major.minor only](#compatible-versioning-majorminor-only)
-    * [Naming and defining colors](#naming-and-defining-colors)
-    * [App root view controller](#app-root-view-controller)
-    * [Naming and defining fonts](#naming-and-defining-fonts)
-    * [Handle font accessibility sizing](#handle-font-accessibility-sizing)
-    * [Safely test network and configurations](#safely-test-network-and-configurations)
-    * [Manage global appearance](#manage-global-appearance)
-    * [Segues and view controller initialization from storyboards](#segues-and-view-controller-initialization-from-storyboards)
-    * [Organize dictionary and JSON key strings](#organize-dictionary-and-json-key-strings)
-    * [Use semantic names for fonts and colors in storyboards](#use-semantic-names-for-fonts-and-colors-in-storyboards)
     * [Pluralize: Mix numbers and nouns and do it really well](#pluralizemix-numbers-and-nouns-and-do-it-really-well)
-    * [Typed UserDefaults storage](#typed-userdefaults-storage)
+    * [Organize dictionary and JSON key strings](#organize-dictionary-and-json-key-strings)
     * [Switch environments and API servers](#switch-environments-and-api-servers)
+    * [Resetting state when a view is dismissed](#resetting-state-when-a-view-is-dismissed)
+    * [Error Handling](#error-handling)
+        * [Logging errors effectively](#logging-errors-effectively)
+        * [Displaying errors to the user](#displaying-errors-to-the-user)
+        * [Translating error messages](#translating-error-messages)
+* [Recommended](#recommended)
+    * [Safely test network and configurations](#safely-test-network-and-configurations)
+    * [Segues and view controller initialization from storyboards](#segues-and-view-controller-initialization-from-storyboards)
+    * [Typed UserDefaults storage](#typed-userdefaults-storage)
     * [Access debug information for bug reporting](#access-debug-information-for-bug-reporting)
     * [Optimistically update state and revert on error](#optimistically-update-state-and-revert-on-error)
     * [Give the team credit somewhere](#give-the-team-credit-somewhere)
     * [Automate screenshots in every language](#automate-screenshots-in-every-language)
     * [Automate App Store demo video](#automate-app-store-demo-video)
-    * [User data migration and deprecation patterns](#user-data-migration-and-deprecation-patterns)
-    * [Error Handling](#error-handling)
-        * [Logging errors effectively](#logging-errors-effectively)
-        * [Displaying errors to the user](#displaying-errors-to-the-user)
-        * [Translating error messages](#translating-error-messages)
-    * [Resetting state when a view is dismissed](#resetting-state-when-a-view-is-dismissed)
     * [Demo user data for App Review and screenshots](#demo-user-data-for-app-review-and-screenshots)
     * [State patterns for handling API request status](#state-patterns-for-handling-api-request-status)
 * [As Needed](#as-needed)
 * [Interesting](#interesting)
-
-*TOC generated with [DocToc](http://doctoc.herokuapp.com/)*
+    * [Manage global appearance](#manage-global-appearance)
+    * [Use semantic names for fonts and colors in storyboards](#use-semantic-names-for-fonts-and-colors-in-storyboards)
+    * [User data migration and deprecation patterns](#user-data-migration-and-deprecation-patterns)
 
 # Required
 
 These things _must_ be done the same way across every project in order to pass a code review.
+
+## Compatible Versioning: major.minor only
+
+Use [Compatible Versioning](https://github.com/staltz/comver) (ComVer) instead of Semantic Versioning (SemVer), for both app marketing and library release version numbers.
+
+_It's awesome because:_
+
+It simplifies versioning down to, "Is this version backwards compatible or not?" and makes nicer looking marketing version numbers for users.
+
+It also takes the guesswork out of deciding on a marketing version.
+
+_How it works:_
+
+Increment the MAJOR version when you make backwards-incompatible updates of any kind MINOR version when you make 100% backwards-compatible updates
+
+_Tips & Conventions:_
+
+* Continue to add a build number to the marketing number for the app, making this number use 3 segments instead of 4.
+* Continue to tag each release of a library with `major.minor.0` to satisfy current Swift Package Manager behavior (Jan 2017) which requires full SemVer tags. This is 100% semantically equivalent to ComVer.
+
+_Alternatives we don't want to use:_
+
+* [SemVer](http://semver.org)
+
+## App root view controller
+
+## Naming and defining colors
+
+_It's awesome because:_
+
+You know exactly where to go to change any built-in color used by your app. This doesn't apply to dynamic colors used based on API values.
+
+_How it works:_
+
+Define all common colors used in your app inside a `UIColor` extension in a file called `UIColor+MyApp.swift`. Use color literals over hex initializers, etc., as it is much easier for developer brains to interpret. To add a color literal start typing `#color` in Xcode and autocomplete should help you out.
+
+<img src="images/ColorExample.png" width="491px" alt="Code for a UIColor extension using color literals">
+
+_Tips & Conventions:_
+
+_Alternatives we don't want to use:_
+
+* `UIColor(hex: 0xabcdef)`
+* Color definitions all over the code.
+
+## Fonts
+
+### Naming and defining fonts
+
+### Handle font accessibility sizing
 
 ## Extract Xcode Build Phases into Separate Scripts
 
@@ -138,55 +187,23 @@ _Tips & Conventions:_
 
 _Alternatives we don't want to use:_
 
+## Pluralize: Mix numbers and nouns and do it really well
+
+## Organize dictionary and JSON key strings
+
+## Switch environments and API servers
+
+## Resetting state when a view is dismissed
+
+## Error Handling
+
+### Logging errors effectively
+
+### Displaying errors to the user
+
+### Translating error messages
+
 # Recommended
-
-## Compatible Versioning: major.minor only
-
-Use [Compatible Versioning](https://github.com/staltz/comver) (ComVer) instead of Semantic Versioning (SemVer), for both app marketing and library release version numbers.
-
-_It's awesome because:_
-
-It simplifies versioning down to, "Is this version backwards compatible or not?" and makes nicer looking marketing version numbers for users.
-
-It also takes the guesswork out of deciding on a marketing version.
-
-_How it works:_
-
-Increment the MAJOR version when you make backwards-incompatible updates of any kind MINOR version when you make 100% backwards-compatible updates
-
-_Tips & Conventions:_
-
-* Continue to add a build number to the marketing number for the app, making this number use 3 segments instead of 4.
-* Continue to tag each release of a library with `major.minor.0` to satisfy current Swift Package Manager behavior (Jan 2017) which requires full SemVer tags. This is 100% semantically equivalent to ComVer.
-
-_Alternatives we don't want to use:_
-
-* [SemVer](http://semver.org)
-
-## Naming and defining colors
-
-_It's awesome because:_
-
-You know exactly where to go to change any built-in color used by your app. This doesn't apply to dynamic colors used based on API values.
-
-_How it works:_
-
-Define all common colors used in your app inside a `UIColor` extension in a file called `UIColor+MyApp.swift`. Use color literals over hex initializers, etc., as it is much easier for developer brains to interpret. To add a color literal start typing `#color` in Xcode and autocomplete should help you out.
-
-<img src="images/ColorExample.png" width="491px" alt="Code for a UIColor extension using color literals">
-
-_Tips & Conventions:_
-
-_Alternatives we don't want to use:_
-
-* `UIColor(hex: 0xabcdef)`
-* Color definitions all over the code.
-
-## App root view controller
-
-## Naming and defining fonts
-
-## Handle font accessibility sizing
 
 ## Safely test network and configurations
 
@@ -260,21 +277,11 @@ _Alternatives we don't want to use:_
 * Settings.app settings
 * In-App debug settings UI
 
-## Manage global appearance
-
 ## Segues and view controller initialization from storyboards
-
-## Organize dictionary and JSON key strings
-
-## Use semantic names for fonts and colors in storyboards
-
-## Pluralize: Mix numbers and nouns and do it really well
 
 ## Typed UserDefaults storage
 
 _TBD: mention listing stored items for security audit_
-
-## Switch environments and API servers
 
 ## Access debug information for bug reporting
 
@@ -286,18 +293,6 @@ _TBD: mention listing stored items for security audit_
 
 ## Automate App Store demo video
 
-## User data migration and deprecation patterns
-
-## Error Handling
-
-### Logging errors effectively
-
-### Displaying errors to the user
-
-### Translating error messages
-
-## Resetting state when a view is dismissed
-
 ## Demo user data for App Review and screenshots
 
 ## State patterns for handling API request status
@@ -306,3 +301,10 @@ _TBD: mention listing stored items for security audit_
 
 
 # Interesting
+
+## Manage global appearance
+
+## Use semantic names for fonts and colors in storyboards
+
+## User data migration and deprecation patterns
+
