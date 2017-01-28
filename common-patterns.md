@@ -65,7 +65,7 @@ _How it works_
   tableView.backgroundView = emptyStateView
   ```
 1. To remove the view, just set the `backgroundView` to nil
-  ```Swift
+  ```
   tableView.backgroudView = nil
   ```
 
