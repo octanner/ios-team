@@ -333,6 +333,26 @@ _Alternatives we don't want to use:_
 
 ## LaunchKit — AppReviews in Slack
 
+[LaunchKit Review Monitor](https://launchkit.io/reviews/): App reviews delivered to your Slack and inbox
+
+_It's awesome because:_
+
+It's so easy to keep tabs on what users think of your app! Just set it up and the reviews pour into your Slack channel for all to see.
+
+_Tips & Conventions:_
+
+* Don't auto-tweet good reviews. If you have a low-volume Twitter account it can start to look weird.
+
+_People it helps:_
+
+* Product: they see how users are reacting to the app
+* iOS devs: bug reports often happen in app reviews
+
+_Alternatives we don't want to use:_
+
+* Manually checking iTunes Connect or the App Store app
+
+
 ## CommHub — Internal push notification server
 
 [Communication Hub](https://github.com/octanner/communication-hub): An internal server to send email, push notifications, and text messages to the customers of any of our apps.
