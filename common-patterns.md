@@ -162,11 +162,24 @@ Then create the following JSON to send to the push notification server. Note tha
 - Token: Allow server-to-app communication as necessary, without bothering the user, for scenarios like image caching with Kingfisher before the user even opens the app.
 - Screen Metrics: What resolution assets should our APIs prepare?
 
-**Note**
+**Notes**
 
-Also make sure your project has push settings turned on for background notifications so that you'll (almost) always get a push token.
+1. Check for iOS 10 so you can grab the notification settings from the new `UNUserNotificationCenter` API.
 
-<img src="images/push-settings.png" width="560px" alt="Xcode capabilities tab with both Remote Notifications Background Mode and Push Notifications enabled">
+    ```swift
+    if #available(iOS 10.0, *) {
+        deviceInfoService.deviceAndSettingsInfo(with: token) { deviceInfo in
+            self.networkAccess.registerForPushNotifications(using: deviceInfo)
+        }
+    } else {
+        let deviceInfo = self.deviceInfoService.deviceInfoDictionary(with: token)
+        networkAccess.registerForPushNotifications(using: deviceInfo)
+    }
+    ```
+
+1. Also make sure your project has push settings turned on for background notifications so that you'll (almost) always get a push token.
+
+    <img src="images/push-settings.png" width="560px" alt="Xcode capabilities tab with both Remote Notifications Background Mode and Push Notifications enabled">
 
 _Tips & Conventions:_
 
