@@ -22,26 +22,24 @@ This started as a brain dump of everything I could think of. The list of items i
     * [Whisper — Status message UI](#whisper-status-message-ui)
     * [Carthage — Dependency management](#carthage-dependency-management)
     * [version.rb — App version numbering](#versionrb-app-version-numbering)
-    * [Github Reviews — Code reviews](#github-reviews-code-reviews)
-    * [Jenkins — Continuous Integration](#jenkins-continuous-integration)
-    * [Fastlane — Automated build & deployment](#fastlane-automated-build--deployment)
-    * [Testflight — Beta testing & distribution](#testflight-beta-testing--distribution)
-    * [Fabric — Crash reporting and usage metrics](#fabric-crash-reporting-and-usage-metrics)
-    * [OneSky — Translation](#onesky-translation)
     * [SimpleKeychain — Typed Keychain access](#simplekeychain-typed-keychain-access)
     * [DeviceInfo — Standardized access to device properties](#deviceinfo-standardized-access-to-device-properties)
-    * [DVR — UI testing network mocking](#dvr-ui-testing-network-mocking)
-    * [Paw — API exploration, gathering mock data](#paw-api-exploration-gathering-mock-data)
     * [HTMLLabel — Display basic HTML with links and "view more"](#htmllabel-display-basic-html-with-links-and-view-more)
-    * [LaunchKit — AppReviews in Slack](#launchkit-appreviews-in-slack)
-    * [Github -> Amazon SQS trigger — Start CI builds on commit](#github---amazon-sqs-trigger-start-ci-builds-on-commit)
-    * [Github — Code](#github-code)
     * [ben/RateThisApp — Request app ratings](#benratethisapp-request-app-ratings)
     * [ben/ShareThisApp — Share the app](#bensharethisapp-share-the-app)
     * [ben/EmailSupport — Send a support request email](#benemailsupport-send-a-support-request-email)
+    * [Fabric — Crash reporting and usage metrics](#fabric-crash-reporting-and-usage-metrics)
+* [Services](#services)
+    * [Github — Code](#github-code)
+    * [Github Reviews — Code reviews](#github-reviews-code-reviews)
+    * [Fastlane — Automated build & deployment](#fastlane-automated-build--deployment)
+    * [Jenkins — Continuous Integration](#jenkins-continuous-integration)
+    * [Testflight — Beta testing & distribution](#testflight-beta-testing--distribution)
+    * [OneSky — Translation](#onesky-translation)
+    * [LaunchKit — AppReviews in Slack](#launchkit-appreviews-in-slack)
+    * [CommHub — Internal push notification server](#commhub-internal-push-notification-server)
 * [To Be Created, and Required](#to-be-created-and-required)
     * [Credits — Team credits & open source licenses](#credits-team-credits--open-source-licenses)
-    * [Unnamed — Internal push notification server](#unnamed-internal-push-notification-server)
     * [ReachabilityReactor — Monitor network reachability with State](#reachabilityreactor-monitor-network-reachability-with-state)
     * [Dateful — Convenient date handling](#dateful-convenient-date-handling)
     * [Migrations — Perform actions when installed app version changes](#migrations-perform-actions-when-installed-app-version-changes)
@@ -49,15 +47,16 @@ This started as a brain dump of everything I could think of. The list of items i
     * [ClearTest — Xcode plugin to make test names into readable comments](#cleartest-xcode-plugin-to-make-test-names-into-readable-comments)
 * [Recommended](#recommended)
     * [Intercom — Customer support](#intercom-customer-support)
+    * [Paw — API exploration, gathering mock data](#paw-api-exploration-gathering-mock-data)
     * [CustomTabBar — Tab bar with highlight](#customtabbar-tab-bar-with-highlight)
     * [LocationReactor — Monitor location changes with State](#locationreactor-monitor-location-changes-with-state)
-* [As Needed](#as-needed)
 * [Interesting](#interesting)
     * [SupportKit — messaging SDK for user feedback](#supportkit-messaging-sdk-for-user-feedback)
     * [Chisel — LLDB commands](#chisel-lldb-commands)
     * [Realm — local and server data syncing](#realm-local-and-server-data-syncing)
     * [AlamoFire — common networking](#alamofire-common-networking)
     * [SwiftLint — Coding style enforcement](#swiftlint-coding-style-enforcement)
+    * [DVR — UI testing network mocking](#dvr-ui-testing-network-mocking)
 * [Sources of Inspiration](#sources-of-inspiration)
 
 # Required
@@ -301,33 +300,11 @@ _Alternatives we don't want to use:_
 
 ## version.rb — App version numbering
 
-## Github Reviews — Code reviews
-
-## Jenkins — Continuous Integration
-
-## Fastlane — Automated build & deployment
-
-## Testflight — Beta testing & distribution
-
-## Fabric — Crash reporting and usage metrics
-
-## OneSky — Translation
-
 ## SimpleKeychain — Typed Keychain access
 
 ## DeviceInfo — Standardized access to device properties
 
-## DVR — UI testing network mocking
-
-## Paw — API exploration, gathering mock data
-
 ## HTMLLabel — Display basic HTML with links and "view more"
-
-## LaunchKit — AppReviews in Slack
-
-## Github -> Amazon SQS trigger — Start CI builds on commit
-
-## Github — Code
 
 ## ben/RateThisApp — Request app ratings
 
@@ -335,14 +312,159 @@ _Alternatives we don't want to use:_
 
 ## ben/EmailSupport — Send a support request email
 
+## Fabric — Crash reporting and usage metrics
+
+
+
+
+# Services
+
+## Github — Code
+
+## Github Reviews — Code reviews
+
+## Fastlane — Automated build & deployment
+
+## Jenkins — Continuous Integration
+
+## Testflight — Beta testing & distribution
+
+[TestFlight](https://developer.apple.com/testflight/): TestFlight Beta Testing makes it easy to invite users to test your iOS, watchOS, and tvOS apps before you release them on the App Store.
+
+_It's awesome because:_
+
+It's provided by Apple, and is straightforward.
+
+_Tips & Conventions:_
+
+* Request a beta review on your first build of a new version line, so that way it's available when you want a larger group to test it.
+* Only put developers and testers in as internal testers—put everyone else in as external testers. This is important since we push to TestFlight on every build.
+
+_People it helps:_
+
+* Product: they get to see the build evolve when we've made significant progress.
+* QA: they get a build on every pull request merged to master.
+
+_Alternatives we don't want to use:_
+
+* [Fabric's Beta](https://docs.fabric.io/apple/beta/overview.html) by Google
+* [Hockey Distribution](https://hockeyapp.net/features/distribution/) by Microsoft
+
+
+## OneSky — Translation
+
+[OneSky](https://www.oneskyapp.com/): Translation Made Easy
+for Apps, Games & Websites
+
+_It's awesome because:_
+
+Their workflow is very mobile-centric, and their translators are pretty good to work with. You can switch translators at anytime if you have an issue. There's no retainer fee, you simply pay per translation order. They offer glossary tools, as well as translation memory. You can create separate projects for iOS, App Store, and Android under a single product group.
+
+Translations can be uploaded and downloaded as part of our Fastlane build process.
+
+_Tips & Conventions:_
+
+* Use _really_ good comments to make translations move along faster. Often translators ask about a word being a noun or verb, and what kind of object it refers to for gender and number agreements. Good comments can help eliminate those questions and the delays they introduce. Note that this often means that a single English word may be translated different ways in different parts of the app, and that's OK.
+
+    **Not good:**
+    ```swift
+    // What is being removed? Is may have gender in the target language, and this verb may require appropriate conjugation, or we sound unprofessional.
+    NSLocalizedString("Remove", comment: "Title for a button")
+
+    // What does connection mean here?
+    NSLocalizedString("Failed to add address: Check connection", comment: "Error message")
+
+    // What is being presented? Does it mean shown or given, and is it being presented to a single individual or multiple people?
+    NSLocalizedString("Marking as presented...", comment: "")
+
+    // What is that thing that will be substituted there?
+    NSLocalizedString("Manager: %@", comment: "")
+    ```
+
+    **Better:**
+    ```swift
+    // We are removing the one-on-one
+    NSLocalizedString("Remove", comment: "Title for a button to remove the one-on-one from the list")
+
+    // The internet connection had a problem
+    NSLocalizedString("Failed to add address: Check connection", comment: "Error message when it fails to save a new shipping address due to a poor internet connection")
+
+    // We are giving the award to someone, marking this task as complete
+    NSLocalizedString("Marking as presented...", comment: "Marking that an award has been presented to the recipient, or marking something as complete")
+
+    // The manager's name will be used here, not some translatable term.
+    NSLocalizedString("Manager: %@", comment: "example: Manager: John Doe")
+    ```
+
+* Upload your strings early in the feature development, and send off an order. It's not uncommon for translations to take 3-4 business days for less common languages.
+* Use standardized error messages. These are the single biggest place that iOS and Android strings drift apart, since the UI spec is the same for both apps.
+* Start a comment with _Do NOT translate_ and our internal tools won't upload that string to OneSky. This is mostly important with pluralization tooling.
+
+    ```swift
+    let format = NSLocalizedString("%d option(s)", comment: "Do NOT translate. Uses lookup key from stringdict")
+    ```
+
+_People it helps:_
+
+* Product: they see translations as they happen, and can review if needed.
+* iOS devs: the tools are well tuned for our workflow.
+
+_Alternatives we don't want to use:_
+
+
+## ReviewBot — AppReviews in Slack
+
+[ReviewBot](https://reviewbot.io/): Monitor & Analyze Your Online Reviews
+Get notified via Slack, Email, Trello, or Zendesk
+
+_It's awesome because:_
+
+It's so easy to keep tabs on what users think of your app! Just set it up and the reviews pour into your Slack channel for all to see.
+
+_Tips & Conventions:_
+
+_People it helps:_
+
+* Product: they see how users are reacting to the app
+* iOS devs: bug reports often happen in app reviews
+
+_Alternatives we don't want to use:_
+
+* Manually checking iTunes Connect or the App Store app
+* [AppBot](https://appbot.co/), just because it costs more money. Reevaluate when review volumes across apps are high.
+
+
+## CommHub — Internal push notification server
+
+[Communication Hub](https://github.com/octanner/communication-hub): An internal server to send email, push notifications, and text messages to the customers of any of our apps.
+
+_It's awesome because:_
+
+It lets the server-side apps decide when and how to communicate to customers, and it's written once and then consistently used across all apps we create.
+
+_Tips & Conventions:_
+
+1. Use this in conjunction with the [Register Device](common-patterns.md#register-device) pattern.
+1. `POST` the device info with the endpoint, auth, and payload listed in the docs.
+1. Work with product and API groups to define the exact interactions they want in more sophisticated notifications.
+1. Handle translation client-side for well-established notifications.
+
+_People it helps:_
+
+* Users: they get awesome interactions with the app.
+* Product: they can work with the backend to create any kind of basic notification without iOS involvement.
+* Enterprise IT: they can work out security and other concerns centrally.
+
+_Alternatives we don't want to use:_
+
+* [Urban Airship](https://www.urbanairship.com)
+* Per-app custom backend push server
 
 
 
 # To Be Created, and Required
 
 ## Credits — Team credits & open source licenses
-
-## Unnamed — Internal push notification server
 
 ## ReachabilityReactor — Monitor network reachability with State
 
@@ -361,14 +483,12 @@ _Alternatives we don't want to use:_
 
 ## Intercom — Customer support
 
+## Paw — API exploration, gathering mock data
+
 ## CustomTabBar — Tab bar with highlight
 
 ## LocationReactor — Monitor location changes with State
 
-
-
-
-# As Needed
 
 
 # Interesting
@@ -383,10 +503,20 @@ _Alternatives we don't want to use:_
 
 ## SwiftLint — Coding style enforcement
 
+## DVR — UI testing network mocking
+
+_It's awesome because:_
+
+_Tips & Conventions:_
+
+_People it helps:_
+
+_Alternatives we don't want to use:_
+
+
 
 # Sources of Inspiration
 
 [My iOS Development Toolkit 2016](https://medium.com/ios-os-x-development/my-ios-development-toolkit-2016-ba7601b68085#.lpdd2q1x0) by Sebastian Boldt
 
 [iOS Tools List](https://iosdev.tools)
-
