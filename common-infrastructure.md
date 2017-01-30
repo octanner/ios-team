@@ -412,17 +412,16 @@ _People it helps:_
 _Alternatives we don't want to use:_
 
 
-## LaunchKit — AppReviews in Slack
+## ReviewBot — AppReviews in Slack
 
-[LaunchKit Review Monitor](https://launchkit.io/reviews/): App reviews delivered to your Slack and inbox
+[ReviewBot](https://reviewbot.io/): Monitor & Analyze Your Online Reviews
+Get notified via Slack, Email, Trello, or Zendesk
 
 _It's awesome because:_
 
 It's so easy to keep tabs on what users think of your app! Just set it up and the reviews pour into your Slack channel for all to see.
 
 _Tips & Conventions:_
-
-* Don't auto-tweet good reviews. If you have a low-volume Twitter account it can start to look weird.
 
 _People it helps:_
 
@@ -432,6 +431,7 @@ _People it helps:_
 _Alternatives we don't want to use:_
 
 * Manually checking iTunes Connect or the App Store app
+* [AppBot](https://appbot.co/), just because it costs more money. Reevaluate when review volumes across apps are high.
 
 
 ## CommHub — Internal push notification server
