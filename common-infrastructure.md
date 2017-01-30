@@ -329,6 +329,28 @@ _Alternatives we don't want to use:_
 
 ## Testflight — Beta testing & distribution
 
+[TestFlight](https://developer.apple.com/testflight/): TestFlight Beta Testing makes it easy to invite users to test your iOS, watchOS, and tvOS apps before you release them on the App Store.
+
+_It's awesome because:_
+
+It's provided by Apple, and is straightforward.
+
+_Tips & Conventions:_
+
+* Request a beta review on your first build of a new version line, so that way it's available when you want a larger group to test it.
+* Only put developers and testers in as internal testers—put everyone else in as external testers. This is important since we push to TestFlight on every build.
+
+_People it helps:_
+
+* Product: they get to see the build evolve when we've made significant progress.
+* QA: they get a build on every pull request merged to master.
+
+_Alternatives we don't want to use:_
+
+* [Fabric's Beta](https://docs.fabric.io/apple/beta/overview.html) by Google
+* [Hockey Distribution](https://hockeyapp.net/features/distribution/) by Microsoft
+
+
 ## OneSky — Translation
 
 [OneSky](https://www.oneskyapp.com/): Translation Made Easy
@@ -482,6 +504,14 @@ _Alternatives we don't want to use:_
 ## SwiftLint — Coding style enforcement
 
 ## DVR — UI testing network mocking
+
+_It's awesome because:_
+
+_Tips & Conventions:_
+
+_People it helps:_
+
+_Alternatives we don't want to use:_
 
 
 
