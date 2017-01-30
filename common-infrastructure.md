@@ -335,6 +335,30 @@ _Alternatives we don't want to use:_
 
 ## CommHub — Internal push notification server
 
+[Communication Hub](https://github.com/octanner/communication-hub): An internal server to send email, push notifications, and text messages to the customers of any of our apps.
+
+_It's awesome because:_
+
+It lets the server-side apps decide when and how to communicate to customers, and it's written once and then consistently used across all apps we create.
+
+_Tips & Conventions:_
+
+1. Use this in conjunction with the [Register Device](common-patterns.md#register-device) pattern.
+1. `POST` the device info with the endpoint, auth, and payload listed in the docs.
+1. Work with product and API groups to define the exact interactions they want in more sophisticated notifications.
+1. Handle translation client-side for well-established notifications.
+
+_People it helps:_
+
+* Users: they get awesome interactions with the app.
+* Product: they can work with the backend to create any kind of basic notification without iOS involvement.
+* Enterprise IT: they can work out security and other concerns centrally.
+
+_Alternatives we don't want to use:_
+
+* [Urban Airship](https://www.urbanairship.com)
+* Per-app custom backend push server
+
 
 
 # To Be Created, and Required
