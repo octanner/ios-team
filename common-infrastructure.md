@@ -22,26 +22,24 @@ This started as a brain dump of everything I could think of. The list of items i
     * [Whisper — Status message UI](#whisper-status-message-ui)
     * [Carthage — Dependency management](#carthage-dependency-management)
     * [version.rb — App version numbering](#versionrb-app-version-numbering)
-    * [Github Reviews — Code reviews](#github-reviews-code-reviews)
-    * [Jenkins — Continuous Integration](#jenkins-continuous-integration)
-    * [Fastlane — Automated build & deployment](#fastlane-automated-build--deployment)
-    * [Testflight — Beta testing & distribution](#testflight-beta-testing--distribution)
-    * [Fabric — Crash reporting and usage metrics](#fabric-crash-reporting-and-usage-metrics)
-    * [OneSky — Translation](#onesky-translation)
     * [SimpleKeychain — Typed Keychain access](#simplekeychain-typed-keychain-access)
     * [DeviceInfo — Standardized access to device properties](#deviceinfo-standardized-access-to-device-properties)
-    * [DVR — UI testing network mocking](#dvr-ui-testing-network-mocking)
-    * [Paw — API exploration, gathering mock data](#paw-api-exploration-gathering-mock-data)
     * [HTMLLabel — Display basic HTML with links and "view more"](#htmllabel-display-basic-html-with-links-and-view-more)
-    * [LaunchKit — AppReviews in Slack](#launchkit-appreviews-in-slack)
-    * [Github -> Amazon SQS trigger — Start CI builds on commit](#github---amazon-sqs-trigger-start-ci-builds-on-commit)
-    * [Github — Code](#github-code)
     * [ben/RateThisApp — Request app ratings](#benratethisapp-request-app-ratings)
     * [ben/ShareThisApp — Share the app](#bensharethisapp-share-the-app)
     * [ben/EmailSupport — Send a support request email](#benemailsupport-send-a-support-request-email)
+    * [Fabric — Crash reporting and usage metrics](#fabric-crash-reporting-and-usage-metrics)
+* [Services](#services)
+    * [Github — Code](#github-code)
+    * [Github Reviews — Code reviews](#github-reviews-code-reviews)
+    * [Fastlane — Automated build & deployment](#fastlane-automated-build--deployment)
+    * [Jenkins — Continuous Integration](#jenkins-continuous-integration)
+    * [Testflight — Beta testing & distribution](#testflight-beta-testing--distribution)
+    * [OneSky — Translation](#onesky-translation)
+    * [LaunchKit — AppReviews in Slack](#launchkit-appreviews-in-slack)
+    * [CommHub — Internal push notification server](#commhub-internal-push-notification-server)
 * [To Be Created, and Required](#to-be-created-and-required)
     * [Credits — Team credits & open source licenses](#credits-team-credits--open-source-licenses)
-    * [Unnamed — Internal push notification server](#unnamed-internal-push-notification-server)
     * [ReachabilityReactor — Monitor network reachability with State](#reachabilityreactor-monitor-network-reachability-with-state)
     * [Dateful — Convenient date handling](#dateful-convenient-date-handling)
     * [Migrations — Perform actions when installed app version changes](#migrations-perform-actions-when-installed-app-version-changes)
@@ -49,15 +47,16 @@ This started as a brain dump of everything I could think of. The list of items i
     * [ClearTest — Xcode plugin to make test names into readable comments](#cleartest-xcode-plugin-to-make-test-names-into-readable-comments)
 * [Recommended](#recommended)
     * [Intercom — Customer support](#intercom-customer-support)
+    * [Paw — API exploration, gathering mock data](#paw-api-exploration-gathering-mock-data)
     * [CustomTabBar — Tab bar with highlight](#customtabbar-tab-bar-with-highlight)
     * [LocationReactor — Monitor location changes with State](#locationreactor-monitor-location-changes-with-state)
-* [As Needed](#as-needed)
 * [Interesting](#interesting)
     * [SupportKit — messaging SDK for user feedback](#supportkit-messaging-sdk-for-user-feedback)
     * [Chisel — LLDB commands](#chisel-lldb-commands)
     * [Realm — local and server data syncing](#realm-local-and-server-data-syncing)
     * [AlamoFire — common networking](#alamofire-common-networking)
     * [SwiftLint — Coding style enforcement](#swiftlint-coding-style-enforcement)
+    * [DVR — UI testing network mocking](#dvr-ui-testing-network-mocking)
 * [Sources of Inspiration](#sources-of-inspiration)
 
 # Required
@@ -301,33 +300,11 @@ _Alternatives we don't want to use:_
 
 ## version.rb — App version numbering
 
-## Github Reviews — Code reviews
-
-## Jenkins — Continuous Integration
-
-## Fastlane — Automated build & deployment
-
-## Testflight — Beta testing & distribution
-
-## Fabric — Crash reporting and usage metrics
-
-## OneSky — Translation
-
 ## SimpleKeychain — Typed Keychain access
 
 ## DeviceInfo — Standardized access to device properties
 
-## DVR — UI testing network mocking
-
-## Paw — API exploration, gathering mock data
-
 ## HTMLLabel — Display basic HTML with links and "view more"
-
-## LaunchKit — AppReviews in Slack
-
-## Github -> Amazon SQS trigger — Start CI builds on commit
-
-## Github — Code
 
 ## ben/RateThisApp — Request app ratings
 
@@ -335,14 +312,34 @@ _Alternatives we don't want to use:_
 
 ## ben/EmailSupport — Send a support request email
 
+## Fabric — Crash reporting and usage metrics
+
+
+
+
+# Services
+
+## Github — Code
+
+## Github Reviews — Code reviews
+
+## Fastlane — Automated build & deployment
+
+## Jenkins — Continuous Integration
+
+## Testflight — Beta testing & distribution
+
+## OneSky — Translation
+
+## LaunchKit — AppReviews in Slack
+
+## CommHub — Internal push notification server
 
 
 
 # To Be Created, and Required
 
 ## Credits — Team credits & open source licenses
-
-## Unnamed — Internal push notification server
 
 ## ReachabilityReactor — Monitor network reachability with State
 
@@ -361,14 +358,12 @@ _Alternatives we don't want to use:_
 
 ## Intercom — Customer support
 
+## Paw — API exploration, gathering mock data
+
 ## CustomTabBar — Tab bar with highlight
 
 ## LocationReactor — Monitor location changes with State
 
-
-
-
-# As Needed
 
 
 # Interesting
@@ -383,10 +378,12 @@ _Alternatives we don't want to use:_
 
 ## SwiftLint — Coding style enforcement
 
+## DVR — UI testing network mocking
+
+
 
 # Sources of Inspiration
 
 [My iOS Development Toolkit 2016](https://medium.com/ios-os-x-development/my-ios-development-toolkit-2016-ba7601b68085#.lpdd2q1x0) by Sebastian Boldt
 
 [iOS Tools List](https://iosdev.tools)
-
