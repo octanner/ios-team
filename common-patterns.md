@@ -13,6 +13,7 @@ The list of items, grouping, and ordering of them is done. We're now working thr
 * [Required](#required)
     * [Compatible Versioning: major.minor only](#compatible-versioning-majorminor-only)
     * [App root view controller](#app-root-view-controller)
+    * [Device Registration](#device-registration)
     * [Naming and defining colors](#naming-and-defining-colors)
     * [Fonts](#fonts)
         * [Naming and defining fonts](#naming-and-defining-fonts)
@@ -73,6 +74,107 @@ _Alternatives we don't want to use:_
 * [SemVer](http://semver.org)
 
 ## App root view controller
+
+## Device Registration
+
+On each app launch attempt to get a push notification token. This doesn't request permissions to alert a user of anything; requesting permission for badges, notifications, and sounds is another pattern.
+
+_It's awesome because:_
+
+You're able to silently communicate with your app, even if you've never asked the user for permission to show alerts. Later, when you're ready to add user-visible alerts, it's just a simple matter of deciding how to present that permission request—the plumbing to make it work is already in place.
+
+_How it works:_
+
+```swift
+func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    UIApplication.shared.registerForRemoteNotifications()
+    return true
+}
+```
+
+When you get the token, format it.
+
+```swift
+func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+    let formatted = deviceToken.reduce("", {$0 + String(format: "%02X", $1)})
+}
+```
+
+Then create the following JSON to send to the push notification server. Note that if getting a token fails, you should still send the payload with a `nil` token. Also `lat` and `lng` would require you to have location permissions. Use something like [DeviceInfo](https://github.com/benjaminsnorris/DeviceInfo) to get all the information properly formatted.
+
+```json
+{
+  "name" : "John's iPhone 😂",
+  "locale": {
+    "translation" : "en",
+    "language" : "en",
+    "identifier" : "en_US",
+  },
+  "location" : {
+    "lat" : 40.7608,
+    "lng" : -111.891,
+    "timezone" : "America\/Denver",
+  },
+  "hardware" : {
+    "name" : "iPhone 6S Plus",
+    "version" : "iPhone8,2",
+    "type" : "iPhone",
+    "identifier" : "54995F65-CE13-449D-84F0-A74C51F9FB07"
+  },
+  "OS" : {
+    "name" : "iOS",
+    "version" : "10.1"
+  },
+  "notification_settings" : {
+    "lockScreen" : "enabled",
+    "alert" : "enabled",
+    "alertStyle" : "banner",
+    "badge" : "enabled",
+    "notificationCenter" : "enabled",
+    "sound" : "enabled",
+    "carPlay" : "notSupported",
+    "authorization" : "authorized"
+  },
+  "app" : {
+    "name" : "Great Work",
+    "version" : "2.5.2",
+    "build" : "2.5.2.1674",
+    "identifier" : "com.octanner.gw",
+    "token" : "F702DDF80B4BD3622F8CCAEEB77657FE18AB8B71C8563622B2D9088C0BEF3383",
+  },
+  "screen_metrics" : {
+    "density" : 3,
+    "h" : 2208,
+    "w" : 1242
+  }
+}
+```
+
+**Rationale for the details:**
+
+- Device name: this can be shown to the user when allowing them to manage approved devices for their account.
+- Locale: Which languages do our customer use on their device? Should we support a language we currently don't?
+- Location: Timezone is used to send user-visible notifications at the optimum time they are likely to read them.
+- Hardware: Can we use 3D Touch? Can we end support for the iPhone 4S?
+- OS: How quick are our customers upgrading?
+- Notification Settings: Should we even attempt to send this user-visible notification to this device?
+- App: How quickly are our users updating our app? When the server wants to send a notification to Great Work, it shouldn't use the token for Welbe.
+- Token: Allow server-to-app communication as necessary, without bothering the user, for scenarios like image caching with Kingfisher before the user even opens the app.
+- Screen Metrics: What resolution assets should our APIs prepare?
+
+**Note**
+
+Also make sure your project has push settings turned on for background notifications so that you'll (almost) always get a push token.
+
+<img src="images/push-settings.png" width="560px" alt="Xcode capabilities tab with both Remote Notifications Background Mode and Push Notifications enabled">
+
+_Tips & Conventions:_
+
+1. Don't forget the part about the background settings for your project.
+1. Only add `lat` and `lng` if you're actually using location for something user-visible, and you've requested and received permission.
+
+_Alternatives we don't want to use:_
+
 
 ## Naming and defining colors
 
