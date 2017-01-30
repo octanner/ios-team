@@ -331,6 +331,65 @@ _Alternatives we don't want to use:_
 
 ## OneSky — Translation
 
+[OneSky](https://www.oneskyapp.com/): Translation Made Easy
+for Apps, Games & Websites
+
+_It's awesome because:_
+
+Their workflow is very mobile-centric, and their translators are pretty good to work with. You can switch translators at anytime if you have an issue. There's no retainer fee, you simply pay per translation order. They offer glossary tools, as well as translation memory. You can create separate projects for iOS, App Store, and Android under a single product group.
+
+Translations can be uploaded and downloaded as part of our Fastlane build process.
+
+_Tips & Conventions:_
+
+* Use _really_ good comments to make translations move along faster. Often translators ask about a word being a noun or verb, and what kind of object it refers to for gender and number agreements. Good comments can help eliminate those questions and the delays they introduce. Note that this often means that a single English word may be translated different ways in different parts of the app, and that's OK.
+
+    **Not good:**
+    ```swift
+    // What is being removed? Is may have gender in the target language, and this verb may require appropriate conjugation, or we sound unprofessional.
+    NSLocalizedString("Remove", comment: "Title for a button")
+
+    // What does connection mean here?
+    NSLocalizedString("Failed to add address: Check connection", comment: "Error message")
+
+    // What is being presented? Does it mean shown or given, and is it being presented to a single individual or multiple people?
+    NSLocalizedString("Marking as presented...", comment: "")
+
+    // What is that thing that will be substituted there?
+    NSLocalizedString("Manager: %@", comment: "")
+    ```
+
+    **Better:**
+    ```swift
+    // We are removing the one-on-one
+    NSLocalizedString("Remove", comment: "Title for a button to remove the one-on-one from the list")
+
+    // The internet connection had a problem
+    NSLocalizedString("Failed to add address: Check connection", comment: "Error message when it fails to save a new shipping address due to a poor internet connection")
+
+    // We are giving the award to someone, marking this task as complete
+    NSLocalizedString("Marking as presented...", comment: "Marking that an award has been presented to the recipient, or marking something as complete")
+
+    // The manager's name will be used here, not some translatable term.
+    NSLocalizedString("Manager: %@", comment: "example: Manager: John Doe")
+    ```
+
+* Upload your strings early in the feature development, and send off an order. It's not uncommon for translations to take 3-4 business days for less common languages.
+* Use standardized error messages. These are the single biggest place that iOS and Android strings drift apart, since the UI spec is the same for both apps.
+* Start a comment with _Do NOT translate_ and our internal tools won't upload that string to OneSky. This is mostly important with pluralization tooling.
+
+    ```swift
+    let format = NSLocalizedString("%d option(s)", comment: "Do NOT translate. Uses lookup key from stringdict")
+    ```
+
+_People it helps:_
+
+* Product: they see translations as they happen, and can review if needed.
+* iOS devs: the tools are well tuned for our workflow.
+
+_Alternatives we don't want to use:_
+
+
 ## LaunchKit — AppReviews in Slack
 
 [LaunchKit Review Monitor](https://launchkit.io/reviews/): App reviews delivered to your Slack and inbox
