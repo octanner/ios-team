@@ -309,7 +309,7 @@ _Alternatives we don't want to use:_
 
 # Recommended
 
-## Safely test network and configurations
+## Safely test network and data configurations
 
 _It's awesome because:_
 
