@@ -10,34 +10,44 @@ This guide is based on the following sources:
 
 ## Table of Contents
 
-TODO: sync TOC with reality
+* [Introduction](#introduction)
+* [Table of Contents](#table-of-contents)
 * [Organization](#organization)
-  * [init & deinit](#init-and-deinit)
-  * [Remove Unused Code](#remove-unused-code)
+    * [Scenarios](#scenarios)
+    * [Navigation Hierarchy](#navigation-hierarchy)
+* [Grid](#grid)
+* [Type](#type)
+    * [Headings](#headings)
+    * [Body Text](#body-text)
+    * [Attributed Text](#attributed-text)
+* [Buttons](#buttons)
+    * [Default](#default)
+    * [Primary](#primary)
+    * [Danger](#danger)
+    * [More](#more)
+* [Forms](#forms)
+    * [Text Fields](#text-fields)
+    * [Error popovers](#error-popovers)
+    * [Other elements](#other-elements)
+* [Alerts](#alerts)
+    * [Dismiss](#dismiss)
 * [Spacing](#spacing)
-* [Imports](#imports)
-* [Modifier Keyword Order](#modifier-keyword-order)
+* [Table Views](#table-views)
+* [Avatars](#avatars)
+* [Credits](#credits)
+* [Numbers](#numbers)
 * [Naming](#naming)
-  * [Image Naming](#image-naming)
-* [Constants](#constants)
-  * [Singletons](#singletons)
-* [Enumerated Types](#enumerated-types)
-* [Implicit Getters](#implicit-getters)
-* [Private Properties](#private-properties)
-* [Typed Collection Initialization](#typed-collection-initialization)
-* [Variables](#variables)
-  * [Colon Placement](#colon-placement)
-  * [Native Over Bridged](#native-over-bridged)
-  * [Mutability](#mutability-let-over-var)
-* [Optionals](#optionals)
-* [Closures](#closures)
+    * [Image Naming](#image-naming)
+* [Cut, Copy, Paste](#cut-copy-paste)
+* [Variable width areas](#variable-width-areas)
+* [Mutability](#mutability)
+* [Required Items](#required-items)
+* [Animations](#animations)
 * [Conditionals](#conditionals)
-  * [Ternary Operator](#ternary-operator)
-  * [Nil Coalescing Operator](#nil-coalescing-operator)
-* [Explicit References to Self](#explicit-references-to-self)
-* [Static vs. Dynamic Code](#static-vs-dynamic-code)
-* [Extensions](#extensions)
+* [User Defaults](#user-defaults)
+* [Profile page](#profile-page)
 * [Error Handling](#error-handling)
+* [Other UI Style Guides](#other-ui-style-guides)
 
 ## Organization
 
@@ -58,10 +68,6 @@ All screens should fit within a standard view controller hierarchy. Major naviga
 
 Any screens that need to make unorthodox transitions between two incompatible navigation structures should alter the `rootViewController` property of the app's window. For example, a transition from a _Single Page Modal_ loading screen to a _Navigation Controller_ home screen should swap out the `rootViewController` properly. Each should be defined in their own flow inside storyboards, but no transitions or storyboard references should exist between them because they are not within similar navigation structures.
 
-## Grid
-
-> TODO: Is this even doable on iOS?
-
 ## Type
 
 Avoid all caps. Use title case or sentence case.
@@ -73,12 +79,12 @@ Avoid all caps. Use title case or sentence case.
 ### Body Text
 
 San Francisco Book 17.0
-#333333
+`#333333`
 
 *Subtitle*
 
 San Francisco Light 13.0
-#666666
+`#666666`
 
 ### Attributed Text
 
@@ -127,8 +133,8 @@ Use buttons for modal actions. Style them with the view's tint color, using the 
 
 * rowHeight: GFloat = 44.0
 * separator inset - Standard
-* separatorColor - #c1c1c1
-* backgroundColor - #e3e3e3
+* separatorColor - `#c1c1c1`
+* backgroundColor - `#e3e3e3`
 * cell color - white
 
 
