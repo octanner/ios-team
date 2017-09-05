@@ -310,7 +310,7 @@ _Alternatives we don't want to use:_
 
 ## Switch environments and API servers
 
-## Resetting state when a view is dismissed
+## Derik/Resetting state when a view is dismissed
 
 ## Error Handling
 
