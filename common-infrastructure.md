@@ -304,7 +304,7 @@ _Alternatives we don't want to use:_
 
 ## DeviceInfo — Standardized access to device properties
 
-## HTMLLabel — Display basic HTML with links and "view more"
+## Derik/HTMLLabel — Display basic HTML with links and "view more"
 
 ## ben/RateThisApp — Request app ratings
 
