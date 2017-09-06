@@ -131,7 +131,8 @@ _Alternatives we don't want to use:_
 * [CocoaLumberjack](https://github.com/CocoaLumberjack/CocoaLumberjack)
 
 
-## Marshal — JSON Parsing
+## Marshal — JSON Parsing 
+-> We'll want to update this with Codable stuff
 
 [Marshal](https://github.com/utahiosmac/Marshal/): Marshaling the typeless wild west of [String: Any]
 
@@ -241,7 +242,7 @@ _Alternatives we don't want to use:_
 * Standard MVC "pass data via `prepare(for segue:, sender:)`"
 
 
-## XCTest — Unit and UI Testing
+## Parker/XCTest — Unit and UI Testing
 
 ## ios-network-stack — Internal HTTP API calls
 
@@ -294,7 +295,7 @@ _Alternatives we don't want to use:_
 * Plain `URLRequest()` and friends
 * [AlamofireImage](https://github.com/Alamofire/AlamofireImage)
 
-## Whisper — Status message UI
+## Parker/Whisper — Status message UI
 
 ## Carthage — Dependency management
 
@@ -485,9 +486,13 @@ _Alternatives we don't want to use:_
 
 ## Paw — API exploration, gathering mock data
 
-## CustomTabBar — Tab bar with highlight
-
 ## LocationReactor — Monitor location changes with State
+
+
+# Deprecated
+
+## CustomTabBar — Tab bar with highlight
+* OCT Design has chosen to replace CustomTabBar in favor of the standard UITabBar
 
 
 
@@ -512,7 +517,6 @@ _Tips & Conventions:_
 _People it helps:_
 
 _Alternatives we don't want to use:_
-
 
 
 # Sources of Inspiration
