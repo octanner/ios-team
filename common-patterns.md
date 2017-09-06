@@ -75,6 +75,8 @@ _Alternatives we don't want to use:_
 
 ## App root view controller
 
+- [ ] Ben by 9.13.17
+
 ## Device Registration
 
 On each app launch attempt to get a push notification token. This doesn't request permissions to alert a user of anything; requesting permission for badges, notifications, and sounds is another pattern.
