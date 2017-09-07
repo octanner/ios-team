@@ -324,6 +324,8 @@ _Alternatives we don't want to use:_
 
 ### Translating error messages
 
+- [ ] Ben by 9/13/17
+
 # Recommended
 
 ## Safely test network and data configurations
