@@ -325,6 +325,29 @@ _Alternatives we don't want to use:_
 
 ## Github Reviews — Code reviews
 
+_It's awesome because:_
+
+It lets other super smart developers review the code you have written/altered and tell you how it can be even better! It is a great way to check for simple programming mistakes and learn and share knowledge about Swift and all of the libraries we use.
+
+_Tips & Conventions:_
+
+1. Each Pull Request should be reviewed and _approved_ by at least one other developer, preferrably one on your team and familiar with your code project.  
+
+1. Comments are not just for the one reviewing the code. Leave a comment on your own code if it is complex or may not be easily understood by a reviewer. Also leave comments if there is a particuar aspect or area of code you want the reviewer to look more closely at.
+
+1. Grammar is very important. i.e. Don't end sentences in a preposition.
+     
+1. _"If you can't say anything nice, don't say anything at all."_ When reviewing code, don't only look for that which is wrong or can be improved. Remember to leave positive feedback and praise so people continue to like you and feel good about themselves.
+
+1. 
+
+_People it helps:_
+
+It helps the code and everybody in general. Happy code makes happy developers and happy customers. 
+
+_Alternatives we don't want to use:_
+
+
 ## Fastlane — Automated build & deployment
 
 ## Jenkins — Continuous Integration

@@ -324,7 +324,31 @@ _Alternatives we don't want to use:_
 
 ### Translating error messages
 
-- [ ] Ben by 9/13/17
+_It's awesome because:_
+
+People can read the error messages and benefit from them even if they don't speak English!
+
+_How It Works_
+
+1. All references to NSLocalizedString live in the Localized.swift file. 
+    ```swift
+    struct Localized {
+
+        static let connectionError = NSLocalizedString("Connection Error", comment: "Error message for a bad internet connection")
+        static let errorSorry = NSLocalizedString("An error occurred on our end. Sorry", comment: "Error message when an error occurs on the server side")
+    }
+    ```
+1. To add an error message to your project, simply create a new `static let` variable in the Localized struct. 
+It's that simple!
+1. XCode will add that string to a `Localizable.strings` file and OneSky will do the translations for that string.
+1. Then simply reference Localizable.translatedStringVariableName at the call site to apply the localized text to the UI. 
+
+_Tips and Conventions_
+
+* For organization sake, keep the variables in the Localizable struct ordered alphabetically according to variable name. 
+* Make sure you search the file for similar strings before adding a string to the struct. Many strings are similar enough that adding a new string would be redundant and lead to confusion in the future.
+* When adding string to the Localized struct, make sure to keep on top of OneSky so you don't hold up a release waiting on translations to come back from them. That would be a horrible situation that definitely has not happened before...
+* As a general rule, do not add error messages to storyboard or xib files as they will likely be used elsewhere and the `Localized.swift` file is a more appropriate place for them to live. 
 
 # Recommended
 
