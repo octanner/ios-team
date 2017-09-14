@@ -305,8 +305,40 @@ _Alternatives we don't want to use:_
 
 ## DeviceInfo — Standardized access to device properties
 
-- [ ] Derik by 9.13.17
 ## HTMLLabel — Display basic HTML with links and "view more"
+
+_It's awesome because_
+
+It was built by Tim. It's also customizable and easy to use. It also will render text that is HTML which we have plenty of here at OC Tanner
+
+_Tips & Conventions:_
+
+1. Create an outlet for it in Storyboards and set if you want it to `truncateAsNeeded`
+
+1. Configure the base style
+
+   ```swift
+   baseStyle = HTMLStyle(font: UIFont.bodyFont(), color: UIColor.gray)
+   ```
+1. Then configure the link style you want
+
+   ```swift
+   var newLinkStyle = HTMLStyle(color: App.sharedCore.state.tintColor ?? UIColor.blue, lineBreaks: true)
+             newLinkStyle.set(fontWeight: UIFontWeightSemibold)
+             linkStyle = newLinkStyle
+   ```
+1. Set the text of the HTMLLabel by setting its `htmlText`
+
+   ```swift
+   htmlText = text
+   ```
+_People it helps:_
+
+* iOS devs who need to use HTML text from APIs
+
+_Alternatives we don't want to use:_
+
+* Adding UIButton with auto layout after a UILabel
 
 ## ben/RateThisApp — Request app ratings
 
