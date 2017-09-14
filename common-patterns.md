@@ -312,9 +312,49 @@ _Alternatives we don't want to use:_
 
 ## Switch environments and API servers
 
-- [ ] Derik by 9.13.17
-
 ## Resetting state when a view is dismissed
+
+_It's awesome because:_
+
+You can use it to reset an entire state or a property of that state
+
+_How it works:_
+
+1. Create a generic event for resetting
+
+   ```swift
+   struct Reset<T>: Event { }
+   ```
+1. To reset an entire state just use that state as the generic when firing the event
+
+   ```swift
+   core.fire(event: Reset<SubState>())
+   ```
+   
+1. In the state you can check for the event
+
+   ```swift
+   mutating func react(to event: Event) {
+        switch event {
+        case _ as Reset<SubState>:
+            substate = SubState()
+        }
+   }
+   ``` 
+_Tips & Conventions:_
+
+* If you are using Unwind Segues then you can call the event in the unwind segue handler method
+
+   ```swift
+   @IBAction func unwindToAppreciate(_ segue: UIStoryboardSegue) {
+        core.fire(event: Reset<AppreciateState>())
+    }
+   ```
+
+_Alternatives we don't want to use:_
+
+* A unique Event for every time we reset something
+
 
 ## Error Handling
 
