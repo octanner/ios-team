@@ -1,16 +1,16 @@
 # Common iOS Infrastructure
 
-### Motivation
+### Motivation [⤴](#table-of-contents)
 
 Standardizing things that provide no unique value to an application focuses our time on providing the unique value each application has, giving us a competitive edge in the market. Some choices are made not for convenience of the developers of the app themselves, but to reduce the pain or communication burden of others who care about our products.
 
 Items listed here include tools, libraries, conventions, and processes.
 
-### Document Status
+### Document Status [⤴](#table-of-contents)
 
 This started as a brain dump of everything I could think of. The list of items is not curateg, not grouped properly, and not ordered well. We've started write ups on our most-used libraries.
 
-## Table of Contents
+## Table of Contents [⤴](#table-of-contents)
 
 * [Required](#required)
     * [SwiftyBeaver — Logging](#swiftybeaver-logging)
@@ -21,7 +21,7 @@ This started as a brain dump of everything I could think of. The list of items i
     * [Kingfisher — Image loading & caching](#kingfisher--image-loading--caching)
     * [Whisper — Status message UI](#whisper-status-message-ui)
     * [Carthage — Dependency management](#carthage-dependency-management)
-    * [version.rb — App version numbering](#versionrb-app-version-numbering)
+    * [version.sh — App version numbering](#versionsh-app-version-numbering)
     * [SimpleKeychain — Typed Keychain access](#simplekeychain-typed-keychain-access)
     * [DeviceInfo — Standardized access to device properties](#deviceinfo-standardized-access-to-device-properties)
     * [HTMLLabel — Display basic HTML with links and "view more"](#htmllabel-display-basic-html-with-links-and-view-more)
@@ -59,12 +59,12 @@ This started as a brain dump of everything I could think of. The list of items i
     * [DVR — UI testing network mocking](#dvr-ui-testing-network-mocking)
 * [Sources of Inspiration](#sources-of-inspiration)
 
-# Required
+# Required [⤴](#table-of-contents)
 
 These items are required for each project we publish. Exceptions must be approved by the larger iOS team after a rousing debate of the merits and aims of removing the item.
 
 
-## SwiftyBeaver — Logging
+## SwiftyBeaver — Logging [⤴](#table-of-contents) [⤴](#table-of-contents)
 
 [SwiftyBeaver](https://github.com/SwiftyBeaver/SwiftyBeaver): Convenient logging during development & release in Swift 2 & 3 https://swiftybeaver.com
 
@@ -131,7 +131,7 @@ _Alternatives we don't want to use:_
 * [CocoaLumberjack](https://github.com/CocoaLumberjack/CocoaLumberjack)
 
 
-## Marshal — JSON Parsing
+## Marshal — JSON Parsing [⤴](#table-of-contents)
 
 [Marshal](https://github.com/utahiosmac/Marshal/): Marshaling the typeless wild west of [String: Any]
 
@@ -195,7 +195,7 @@ _Alternatives we don't want to use:_
 * [SwiftyJSON](https://github.com/SwiftyJSON/SwiftyJSON)
 
 
-## Reactor — Manage app data flow
+## Reactor — Manage app data flow [⤴](#table-of-contents)
 
 [Reactor](https://github.com/ReactorSwift/Reactor): 🔄 Unidirectional data flow in Swift.
 
@@ -241,11 +241,11 @@ _Alternatives we don't want to use:_
 * Standard MVC "pass data via `prepare(for segue:, sender:)`"
 
 
-## XCTest — Unit and UI Testing
+## XCTest — Unit and UI Testing [⤴](#table-of-contents)
 
-## ios-network-stack — Internal HTTP API calls
+## ios-network-stack — Internal HTTP API calls [⤴](#table-of-contents)
 
-## Kingfisher — Image loading & caching
+## Kingfisher — Image loading & caching [⤴](#table-of-contents)
 
 [Kingfisher](https://github.com/onevcat/Kingfisher): A lightweight, pure-Swift library for downloading and caching images from the web.
 
@@ -294,40 +294,50 @@ _Alternatives we don't want to use:_
 * Plain `URLRequest()` and friends
 * [AlamofireImage](https://github.com/Alamofire/AlamofireImage)
 
-## Whisper — Status message UI
+## Whisper — Status message UI [⤴](#table-of-contents)
 
-## Carthage — Dependency management
+## Carthage — Dependency management [⤴](#table-of-contents)
 
-## version.rb — App version numbering
+## version.sh — Automatic app version numbering [⤴](#table-of-contents)
 
-## SimpleKeychain — Typed Keychain access
+[version.sh](https://gist.github.com/timshadel/07eb324520c66fcd6ef04429dfd8ad4e): $Major.$Minor.$Commit
 
-## DeviceInfo — Standardized access to device properties
+_It's awesome because:_
 
-## HTMLLabel — Display basic HTML with links and "view more"
+_Tips & Conventions:_
 
-## ben/RateThisApp — Request app ratings
+_People it helps:_
 
-## ben/ShareThisApp — Share the app
+_Alternatives we don't want to use:_
 
-## ben/EmailSupport — Send a support request email
+## SimpleKeychain — Typed Keychain access [⤴](#table-of-contents)
 
-## Fabric — Crash reporting and usage metrics
+## DeviceInfo — Standardized access to device properties [⤴](#table-of-contents)
+
+## HTMLLabel — Display basic HTML with links and "view more" [⤴](#table-of-contents)
+
+## ben/RateThisApp — Request app ratings [⤴](#table-of-contents)
+
+## ben/ShareThisApp — Share the app [⤴](#table-of-contents)
+
+## ben/EmailSupport — Send a support request email [⤴](#table-of-contents)
+
+## Fabric — Crash reporting and usage metrics [⤴](#table-of-contents)
 
 
 
 
 # Services
 
-## Github — Code
+## Github — Code [⤴](#table-of-contents)
 
-## Github Reviews — Code reviews
+## Github Reviews — Code reviews [⤴](#table-of-contents)
 
-## Fastlane — Automated build & deployment
+## Fastlane — Automated build & deployment [⤴](#table-of-contents)
 
-## Jenkins — Continuous Integration
+## Jenkins — Continuous Integration [⤴](#table-of-contents)
 
-## Testflight — Beta testing & distribution
+## Testflight — Beta testing & distribution [⤴](#table-of-contents)
 
 [TestFlight](https://developer.apple.com/testflight/): TestFlight Beta Testing makes it easy to invite users to test your iOS, watchOS, and tvOS apps before you release them on the App Store.
 
@@ -351,7 +361,7 @@ _Alternatives we don't want to use:_
 * [Hockey Distribution](https://hockeyapp.net/features/distribution/) by Microsoft
 
 
-## OneSky — Translation
+## OneSky — Translation [⤴](#table-of-contents)
 
 [OneSky](https://www.oneskyapp.com/): Translation Made Easy
 for Apps, Games & Websites
@@ -412,7 +422,7 @@ _People it helps:_
 _Alternatives we don't want to use:_
 
 
-## ReviewBot — AppReviews in Slack
+## ReviewBot — AppReviews in Slack [⤴](#table-of-contents)
 
 [ReviewBot](https://reviewbot.io/): Monitor & Analyze Your Online Reviews
 Get notified via Slack, Email, Trello, or Zendesk
@@ -434,7 +444,7 @@ _Alternatives we don't want to use:_
 * [AppBot](https://appbot.co/), just because it costs more money. Reevaluate when review volumes across apps are high.
 
 
-## CommHub — Internal push notification server
+## CommHub — Internal push notification server [⤴](#table-of-contents)
 
 [Communication Hub](https://github.com/octanner/communication-hub): An internal server to send email, push notifications, and text messages to the customers of any of our apps.
 
@@ -464,46 +474,46 @@ _Alternatives we don't want to use:_
 
 # To Be Created, and Required
 
-## Credits — Team credits & open source licenses
+## Credits — Team credits & open source licenses [⤴](#table-of-contents)
 
-## ReachabilityReactor — Monitor network reachability with State
+## ReachabilityReactor — Monitor network reachability with State [⤴](#table-of-contents)
 
-## Dateful — Convenient date handling
+## Dateful — Convenient date handling [⤴](#table-of-contents)
 
-## Migrations — Perform actions when installed app version changes
+## Migrations — Perform actions when installed app version changes [⤴](#table-of-contents)
 
-## .gitignore — Common configuration for ignoring files on our projects
+## .gitignore — Common configuration for ignoring files on our projects [⤴](#table-of-contents)
 
-## ClearTest — Xcode plugin to make test names into readable comments
+## ClearTest — Xcode plugin to make test names into readable comments [⤴](#table-of-contents)
 
 
 
 
 # Recommended
 
-## Intercom — Customer support
+## Intercom — Customer support [⤴](#table-of-contents)
 
-## Paw — API exploration, gathering mock data
+## Paw — API exploration, gathering mock data [⤴](#table-of-contents)
 
-## CustomTabBar — Tab bar with highlight
+## CustomTabBar — Tab bar with highlight [⤴](#table-of-contents)
 
-## LocationReactor — Monitor location changes with State
+## LocationReactor — Monitor location changes with State [⤴](#table-of-contents)
 
 
 
 # Interesting
 
-## SupportKit — messaging SDK for user feedback
+## SupportKit — messaging SDK for user feedback [⤴](#table-of-contents)
 
-## Chisel — LLDB commands
+## Chisel — LLDB commands [⤴](#table-of-contents)
 
-## Realm — local and server data syncing
+## Realm — local and server data syncing [⤴](#table-of-contents)
 
-## AlamoFire — common networking
+## AlamoFire — common networking [⤴](#table-of-contents)
 
-## SwiftLint — Coding style enforcement
+## SwiftLint — Coding style enforcement [⤴](#table-of-contents)
 
-## DVR — UI testing network mocking
+## DVR — UI testing network mocking [⤴](#table-of-contents)
 
 _It's awesome because:_
 
