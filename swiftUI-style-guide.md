@@ -70,7 +70,9 @@ Buttons should use a function reference for the action and the View code in the 
 ```
 Button(action: self.performOutro) {
   Text(UserFacing.getStarted)
-}```
+}
+
+```
 
 ### HStack/VStack
 
