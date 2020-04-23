@@ -80,6 +80,26 @@ Use `ButtonStyle` to apply many properties to a button in a single modifier. Gre
 
 `.buttonStyle(RoundedBackgroundStyle())`
 
+```
+struct RoundedBackgroundStyle: ButtonStyle {
+    
+    var backgroundColor = Color.black
+    var textColor = Color.white
+    
+    func makeBody(configuration: Self.Configuration) -> some View {
+        configuration.label
+            .foregroundColor(textColor)
+            .font(Font.body.weight(.black))
+            .padding()
+            .background(backgroundColor)
+            .overlay(configuration.isPressed ? Constants.lightOverlay : nil)
+            .cornerRadius(Constants.minimalCornerRadius)
+            .scaleEffect(configuration.isPressed ? Constants.defaultScaleValue : 1)
+    }
+    
+}
+
+```
 
 ### HStack/VStack
 
@@ -101,10 +121,31 @@ Use Constants for all modifier and property values
 
 `.cornerRadius(Constants.defaultCornerRadius)`
 
-Use ViewExtension for nice syntax:
+```
+enum Constants {
+    static let defaultCornerRadius: CGFloat = 8.0
+}
+
+```
+
+Use extension on `View` for nice syntax:
 
 `.padding(.medium)`
 
+```
+extension View {
+
+    func padding(_ edge: Edge.Set, _ constant: Constants.Padding) -> some View {
+        return self.padding(edge, constant.rawValue)
+    }
+    
+    func padding(_ constant: Constants.Padding) -> some View {
+        return self.padding(constant.rawValue)
+    }
+
+}
+
+```
 
 
 ### Architecture
@@ -113,7 +154,8 @@ Inject important app information (such as `currentUser` or `currentUserId`) into
 
 `@Environment(\.currentUserId) var currentUserId`
 
-Use custom `EnvironmentKey`s for ☝️
+Use custom `EnvironmentKey`s for Environment keypaths☝️
+Example:
 
 ```
 struct CurrentUserIdKey: EnvironmentKey {
@@ -161,6 +203,7 @@ Preferrably we should include include previews to cover **at least** these cases
 1. View Variations where applicable (Login in view WITH an error, and WITHOUT an error, With avatar and WITHOUT avatar etc.)
 1. Light AND Dark appearance
 1. Accessibility sizes
+1. (Localization where applicable)
 
 #### Location
 
@@ -168,7 +211,7 @@ Previews should be placed inside a separate file of the same name with the `_Pre
 They should be grouped into two separate previews. `{FileName}_DevicePreviews` and `{FileName}_Accessibility`
 The file containing the view should then include its own previews named `{ViewName}_Previews` which will reference the actual previews in the other file. (This is done for code clealiness, and code coverage so the preview code is not counted against code coverage)
 
-Previews reference will look at such:
+For example:
 
 ```
 static var previews: some View {
