@@ -62,6 +62,9 @@ Button(action: self.performOutro) {
 .padding()
 ```
 
+When creating a SwiftUI `body` prefer smaller building blocks than 1 massive body. 
+If your body is > ~50 loc you should consider refactoring to multiple SwiftUI views. 
+
 
 ### Button
 
@@ -73,6 +76,10 @@ Button(action: self.performOutro) {
 }
 
 ```
+Use `ButtonStyle` to apply many properties to a button in a single modifier. Great for using the same style on buttons throught the app
+
+`.buttonStyle(RoundedBackgroundStyle())`
+
 
 ### HStack/VStack
 
@@ -85,5 +92,89 @@ VStack {
   Image(systemSymbol: .circle)
             
   Spacer()
+}
+```
+
+### Constants
+
+Use Constants for all modifier and property values
+
+`.cornerRadius(Constants.defaultCornerRadius)`
+
+Use ViewExtension for nice syntax:
+
+`.padding(.medium)`
+
+
+
+### Architecture
+
+Inject important app information (such as `currentUser` or `currentUserId`) into the `Environment`
+
+`@Environment(\.currentUserId) var currentUserId`
+
+Use custom `EnvironmentKey`s for ☝️
+
+```
+struct CurrentUserIdKey: EnvironmentKey {
+    
+    static var defaultValue: String? {
+        return nil
+    }
+    
+}
+
+
+// MARK: - Environment values extension
+
+extension EnvironmentValues {
+
+    var currentUserId: String? {
+        get {
+            self[CurrentUserIdKey.self]
+        } set {
+            self[CurrentUserIdKey.self] = newValue
+        }
+    }
+    
+}
+```
+
+Make sure to use `List` for large data sets. Putting a `VStack` inside of a `ScrollView` doesn't reuse cells. Scroll performance will take a hit
+
+
+### Core Data
+
+ Prefer `@FetchRequest` for list based UI populated by core data entities
+ When ☝️ is not possible, use an `ObservableObject` that has an `NSFetchedResultsController` with `@Published` properties
+
+Core Data doesn't play nice with SwiftUI Previews
+ Use `ViewModel`s for any SwiftUI view that doesn't require mutation. This will enable Previews to work properly with Core Data. 
+
+
+### Previews
+
+Previews are an important part of buliding UI and serve as a type of static UI Test. Every SwiftUI view should include previews
+Preferrably we should include include previews to cover **at least** these cases:
+
+1. Happy path previews. (Size to fit for small components, full device previews for larger views)
+1. View Variations where applicable (Login in view WITH an error, and WITHOUT an error, With avatar and WITHOUT avatar etc.)
+1. Light AND Dark appearance
+1. Accessibility sizes
+
+#### Location
+
+Previews should be placed inside a separate file of the same name with the `_Previews` suffix. 
+They should be grouped into two separate previews. `{FileName}_DevicePreviews` and `{FileName}_Accessibility`
+The file containing the view should then include its own previews named `{ViewName}_Previews` which will reference the actual previews in the other file. (This is done for code clealiness, and code coverage so the preview code is not counted against code coverage)
+
+Previews reference will look at such:
+
+```
+static var previews: some View {
+    Group {
+        ViewName_DevicePreviews.previews 
+        ViewName_AccessibilityPreviews.previews 
+    }
 }
 ```
